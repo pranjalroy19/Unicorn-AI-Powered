@@ -1,0 +1,80 @@
+/* Navbar container */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 50;
+}
+
+/* Inside container */
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #4f46e5; /* Indigo */
+}
+
+/* Desktop menu */
+.menu {
+  display: flex;
+  gap: 20px;
+}
+
+.menu a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.menu a:hover {
+  color: #4f46e5;
+}
+
+/* Mobile toggle (hamburger) */
+.mobile-toggle {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  padding: 10px 20px;
+}
+
+.mobile-menu a {
+  padding: 10px 0;
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.mobile-menu a:hover {
+  color: #4f46e5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+  }
+  .mobile-toggle {
+    display: block;
+  }
+}
