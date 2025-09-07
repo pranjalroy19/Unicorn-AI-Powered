@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Dashboard from "../components/Dashboard";
-import { fetchSavedContent } from "../utils/api";
+import Dashboard from "../components/Dashboard.js"; // add .js
+import { fetchSavedContent } from "../utils/api.js"; // add .js
 
 function DashboardPage() {
   const [contentList, setContentList] = useState([]);

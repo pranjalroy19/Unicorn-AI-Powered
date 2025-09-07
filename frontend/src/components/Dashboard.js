@@ -1,19 +1,32 @@
-import React from "react";
-import Card from "./Card";
-import Forms from "./Forms";
+import React, { useEffect, useState } from "react";
+import Dashboard from "../components/Dashboard.js";
+import api from "../utils/api.js";
 
-function Dashboard({ contentList }) {
-  return (
-    <div>
-      <Forms />
-      <h2 className="text-xl font-semibold mt-6">Saved Content</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-        {contentList.map((item) => (
-          <Card key={item._id} item={item} />
-        ))}
-      </div>
-    </div>
-  );
+
+function DashboardPage() {
+  const [contentList, setContentList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const response = await api.get("/content"); // adjust endpoint as needed
+        setContentList(response.data);
+      } catch (err) {
+        setError(err.message || "Failed to fetch content");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContent();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p className="text-red-500">Error: {error}</p>;
+
+  return <Dashboard contentList={contentList} />;
 }
 
-export default Dashboard;
+export default DashboardPage;
