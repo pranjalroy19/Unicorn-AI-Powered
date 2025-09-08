@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Dashboard from "../components/Dashboard.js";
-import api from "../utils/api.js";
-
+import { fetchSavedContent } from "../utils/api.js"; // ✅ import named function
 
 function DashboardPage() {
   const [contentList, setContentList] = useState([]);
@@ -11,8 +10,8 @@ function DashboardPage() {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await api.get("/content"); 
-        setContentList(response.data);
+        const data = await fetchSavedContent(); 
+        setContentList(data);
       } catch (err) {
         setError(err.message || "Failed to fetch content");
       } finally {
