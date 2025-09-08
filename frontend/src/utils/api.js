@@ -29,3 +29,5 @@ export const deleteContent = async (id) => {
 export const exportContent = async (id, type) => {
   await axios.get(`${API_BASE}/export/${id}?type=${type}`);
 };
+
+

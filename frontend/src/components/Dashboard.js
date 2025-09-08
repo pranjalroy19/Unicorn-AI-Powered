@@ -11,7 +11,7 @@ function DashboardPage() {
   useEffect(() => {
     const fetchContent = async () => {
       try {
-        const response = await api.get("/content"); // adjust endpoint as needed
+        const response = await api.get("/content"); 
         setContentList(response.data);
       } catch (err) {
         setError(err.message || "Failed to fetch content");
