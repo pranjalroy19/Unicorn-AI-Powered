@@ -1,0 +1,110 @@
+/* Container for centering the form */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background: #f3f4f6; /* light background */
+  transition: background 0.3s ease;
+}
+
+.dark .register-container {
+  background: #111827; /* dark background */
+}
+
+/* Form Card */
+.register-form {
+  background: #ffffff;
+  padding: 2.5rem 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark .register-form {
+  background: #1f2937; /* dark form background */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Form Title */
+.register-form h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #111827;
+}
+
+.dark .register-form h2 {
+  color: #f9fafb;
+}
+
+/* Input Fields */
+.register-form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db; /* light border */
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+}
+
+.register-form input:focus {
+  outline: none;
+  border-color: #3b82f6; /* Tailwind blue-500 */
+  box-shadow: 0 0 0 2px #93c5fd;
+}
+
+.dark .register-form input {
+  background: #374151; /* gray-700 */
+  color: #f9fafb;
+  border: 1px solid #4b5563; /* gray-600 */
+}
+
+/* Submit Button */
+.register-form button {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background-color: #3b82f6; /* Tailwind blue-500 */
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.register-form button:hover {
+  background-color: #2563eb; /* Tailwind blue-600 */
+  transform: translateY(-2px);
+}
+
+/* Success & Error Messages */
+.register-success,
+.register-error {
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.register-success {
+  color: #22c55e; /* green-500 */
+}
+
+.register-error {
+  color: #ef4444; /* red-500 */
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .register-form {
+    padding: 2rem 1.5rem;
+  }
+  .register-form h2 {
+    font-size: 1.5rem;
+  }
+}
