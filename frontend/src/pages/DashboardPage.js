@@ -1,23 +1,31 @@
 import React, { useEffect, useState } from "react";
-import Dashboard from "../components/Dashboard.js"; // add .js
-import { fetchSavedContent } from "../utils/api.js"; // add .js
+import Dashboard from "../components/Dashboard.js";
+import { fetchSavedContent } from "../utils/api.js";  // ✅ import named function
 
 function DashboardPage() {
   const [contentList, setContentList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function loadData() {
-      const data = await fetchSavedContent();
-      setContentList(data);
-    }
-    loadData();
+    const fetchContent = async () => {
+      try {
+        const data = await fetchSavedContent();  // ✅ call the named function
+        setContentList(data);
+      } catch (err) {
+        setError(err.message || "Failed to fetch content");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchContent();
   }, []);
 
-  return (
-    <div className="p-6">
-      <Dashboard contentList={contentList} />
-    </div>
-  );
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p className="text-red-500">Error: {error}</p>;
+
+  return <Dashboard contentList={contentList} />;
 }
 
 export default DashboardPage;

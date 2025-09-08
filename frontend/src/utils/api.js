@@ -1,31 +1,36 @@
+// src/utils/api.js
 import axios from "axios";
 
-const API_BASE = "http://localhost:5000/api"; // Akash’s backend
+// ✅ Create an axios instance
+const api = axios.create({
+  baseURL: "http://localhost:5000/api", // 🔧 update if backend runs elsewhere
+});
 
-// User Authentication
-export const loginUser = async (email, password) => {
-  const res = await axios.post(`${API_BASE}/auth/login`, { email, password });
-  return res.data;
-};
-
-// Generate Blog
-export const generateBlog = async (input, format) => {
-  const res = await axios.post(`${API_BASE}/generate/blog`, { input, format });
-  return res.data.result;
-};
-
-// Fetch Saved Content
+// ✅ Named exports (helper functions)
 export const fetchSavedContent = async () => {
-  const res = await axios.get(`${API_BASE}/content`);
-  return res.data;
+  const response = await api.get("/content");
+  return response.data;
 };
 
-// Delete Content
+export const generateBlog = async (data) => {
+  const response = await api.post("/generate-blog", data);
+  return response.data;
+};
+
+export const exportContent = async (id) => {
+  const response = await api.get(`/export/${id}`);
+  return response.data;
+};
+
 export const deleteContent = async (id) => {
-  await axios.delete(`${API_BASE}/content/${id}`);
+  const response = await api.delete(`/content/${id}`);
+  return response.data;
 };
 
-// Export Content
-export const exportContent = async (id, type) => {
-  await axios.get(`${API_BASE}/export/${id}?type=${type}`);
+export const loginUser = async (credentials) => {
+  const response = await api.post("/login", credentials);
+  return response.data;
 };
+
+// ✅ Default export (so you can do `import api from "../utils/api"`)
+export default api;
