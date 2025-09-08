@@ -1,12 +1,17 @@
-// src/pages/Register.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import "./Register.css";
 
-function Register() {
+function Register({ darkMode }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
+
+  const [message, setMessage] = useState({ type: "", text: "" });
+
+  // Optional: apply dark mode class to container
+  const containerClass = darkMode ? "register-container dark" : "register-container light";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,29 +19,27 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Simple validation
+    if (!formData.name || !formData.email || !formData.password) {
+      setMessage({ type: "error", text: "All fields are required!" });
+      return;
+    }
+
+    // Here you can call your API to register user
     console.log("Register Data:", formData);
-    alert("Registered Successfully!");
+    setMessage({ type: "success", text: "Registered successfully!" });
+    setFormData({ name: "", email: "", password: "" });
   };
 
   return React.createElement(
     "div",
-    { className: "flex justify-center items-center min-h-screen" },
+    { className: containerClass },
     React.createElement(
       "form",
-      {
-        onSubmit: handleSubmit,
-        className:
-          "bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-96 space-y-4",
-      },
+      { className: "register-form", onSubmit: handleSubmit },
       [
-        React.createElement(
-          "h2",
-          {
-            key: "title",
-            className: "text-2xl font-bold text-center dark:text-white",
-          },
-          "Register"
-        ),
+        React.createElement("h2", { key: "title" }, "Register"),
         React.createElement("input", {
           key: "name",
           type: "text",
@@ -44,8 +47,6 @@ function Register() {
           placeholder: "Name",
           value: formData.name,
           onChange: handleChange,
-          className:
-            "w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-white",
         }),
         React.createElement("input", {
           key: "email",
@@ -54,8 +55,6 @@ function Register() {
           placeholder: "Email",
           value: formData.email,
           onChange: handleChange,
-          className:
-            "w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-white",
         }),
         React.createElement("input", {
           key: "password",
@@ -64,19 +63,24 @@ function Register() {
           placeholder: "Password",
           value: formData.password,
           onChange: handleChange,
-          className:
-            "w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-white",
         }),
         React.createElement(
           "button",
-          {
-            key: "submit",
-            type: "submit",
-            className:
-              "w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition",
-          },
+          { key: "submit", type: "submit" },
           "Register"
         ),
+        message.text &&
+          React.createElement(
+            "p",
+            {
+              key: "msg",
+              className:
+                message.type === "success"
+                  ? "register-success"
+                  : "register-error",
+            },
+            message.text
+          ),
       ]
     )
   );
