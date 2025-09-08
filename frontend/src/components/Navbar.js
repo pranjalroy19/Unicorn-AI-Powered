@@ -1,5 +1,6 @@
 // src/components/Navbar.js
 import React from "react";
+import "./styles/Navbar.css";
 import { Link } from "react-router-dom";
 
 function Navbar({ darkMode, toggleTheme }) {
@@ -7,26 +8,30 @@ function Navbar({ darkMode, toggleTheme }) {
     "nav",
     {
       className:
-        "flex justify-between items-center p-4 shadow-md bg-gray-100 dark:bg-gray-800",
+        "navbar flex justify-between items-center p-4 shadow-md bg-gray-100 dark:bg-gray-800",
     },
 
     // Left: Brand
     React.createElement(
       "h1",
-      { className: "text-xl font-bold text-gray-900 dark:text-white" },
+      {
+        className:
+          "navbar-title text-xl font-bold text-gray-900 dark:text-white",
+      },
       "Unicorn AI"
     ),
 
     // Right: Links
     React.createElement(
       "div",
-      { className: "flex items-center gap-6" },
+      { className: "navbar-links flex items-center gap-6" },
       [
         React.createElement(
           Link,
           {
             to: "/",
-            className: "text-gray-800 dark:text-gray-200 hover:text-blue-500",
+            className:
+              "text-gray-800 dark:text-gray-200 hover:text-blue-500 transition",
             key: "home",
           },
           "Home"
@@ -35,7 +40,8 @@ function Navbar({ darkMode, toggleTheme }) {
           Link,
           {
             to: "/dashboard",
-            className: "text-gray-800 dark:text-gray-200 hover:text-blue-500",
+            className:
+              "text-gray-800 dark:text-gray-200 hover:text-blue-500 transition",
             key: "dashboard",
           },
           "Dashboard"
@@ -44,7 +50,8 @@ function Navbar({ darkMode, toggleTheme }) {
           Link,
           {
             to: "/login",
-            className: "text-gray-800 dark:text-gray-200 hover:text-blue-500",
+            className:
+              "text-gray-800 dark:text-gray-200 hover:text-blue-500 transition",
             key: "login",
           },
           "Login"
@@ -53,7 +60,8 @@ function Navbar({ darkMode, toggleTheme }) {
           Link,
           {
             to: "/register",
-            className: "text-gray-800 dark:text-gray-200 hover:text-blue-500",
+            className:
+              "text-gray-800 dark:text-gray-200 hover:text-blue-500 transition",
             key: "register",
           },
           "Register"
