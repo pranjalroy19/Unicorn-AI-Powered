@@ -1,15 +1,17 @@
 /* Register.css */
 
 /* page background */
+/* Make register page slightly smaller than viewport to create bottom space */
 .register-page {
-  min-height: 100vh;
+  height: 95vh; /* instead of 100vh */
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #a855f7 100%);
-  padding: 2rem;
   transition: background 0.5s ease;
+  padding: 0;
 }
+
 
 /* Outer rounded card that holds the split layout */
 .register-card {
@@ -81,7 +83,7 @@
 
 /* inputs */
 .register-form .input {
-  width: 100%;
+  width: 90%;
   margin-bottom: 14px;
 }
 
