@@ -4,3 +4,20 @@ body {
   font-family: 'Inter', sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
+/* Remove scrollbars globally */
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* ❌ disables scrolling */
+}
+
+/* Make register page take full viewport without extra padding */
+.register-page {
+  height: 100vh; /* exact viewport height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #a855f7 100%);
+  transition: background 0.5s ease;
+  padding: 0; /* remove padding that caused scroll */
+}

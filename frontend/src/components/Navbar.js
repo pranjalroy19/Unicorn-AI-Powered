@@ -4,80 +4,41 @@ import "./styles/Navbar.css";
 import { Link } from "react-router-dom";
 
 function Navbar({ darkMode, toggleTheme }) {
-  return React.createElement(
-    "nav",
-    {
-      className:
-        "navbar flex justify-between items-center p-4 shadow-md bg-gray-100 dark:bg-gray-800",
-    },
+  return (
+    <nav className={`navbar ${darkMode ? "dark" : ""}`}>
+      {/* Left: Brand */}
+      <h1 className="navbar-title">Unicorn AI</h1>
 
-    // Left: Brand
-    React.createElement(
-      "h1",
-      {
-        className:
-          "navbar-title text-xl font-bold text-gray-900 dark:text-white",
-      },
-      "Unicorn AI"
-    ),
+      {/* Right: Links */}
+      <div className="navbar-links">
+        <Link to="/" className={window.location.pathname === "/" ? "active" : ""}>
+          Home
+        </Link>
+        <Link
+          to="/dashboard"
+          className={window.location.pathname === "/dashboard" ? "active" : ""}
+        >
+          Dashboard
+        </Link>
+        <Link
+          to="/login"
+          className={window.location.pathname === "/login" ? "active" : ""}
+        >
+          Login
+        </Link>
+        <Link
+          to="/register"
+          className={window.location.pathname === "/register" ? "active" : ""}
+        >
+          Register
+        </Link>
 
-    // Right: Links
-    React.createElement(
-      "div",
-      { className: "navbar-links flex items-center gap-6" },
-      [
-        React.createElement(
-          Link,
-          {
-            to: "/",
-            className:
-              "text-gray-800 dark:text-gray-200 hover:text-blue-500 transition",
-            key: "home",
-          },
-          "Home"
-        ),
-        React.createElement(
-          Link,
-          {
-            to: "/dashboard",
-            className:
-              "text-gray-800 dark:text-gray-200 hover:text-blue-500 transition",
-            key: "dashboard",
-          },
-          "Dashboard"
-        ),
-        React.createElement(
-          Link,
-          {
-            to: "/login",
-            className:
-              "text-gray-800 dark:text-gray-200 hover:text-blue-500 transition",
-            key: "login",
-          },
-          "Login"
-        ),
-        React.createElement(
-          Link,
-          {
-            to: "/register",
-            className:
-              "text-gray-800 dark:text-gray-200 hover:text-blue-500 transition",
-            key: "register",
-          },
-          "Register"
-        ),
-        React.createElement(
-          "button",
-          {
-            onClick: toggleTheme,
-            className:
-              "px-3 py-1 rounded bg-blue-500 text-white hover:bg-blue-600 transition",
-            key: "toggle",
-          },
-          darkMode ? "Light Mode" : "Dark Mode"
-        ),
-      ]
-    )
+        {/* Theme Toggle */}
+        <button className="theme-toggle" onClick={toggleTheme}>
+          {darkMode ? "Light Mode" : "Dark Mode"}
+        </button>
+      </div>
+    </nav>
   );
 }
 

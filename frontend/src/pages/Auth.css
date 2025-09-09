@@ -1,20 +1,25 @@
-/* Register.css */
+/* Auth.css */
 
 /* page background */
-.register-page {
-  min-height: 100vh;
+.auth-page {
+  height: 95vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #a855f7 100%);
-  padding: 2rem;
   transition: background 0.5s ease;
+  padding: 0;
 }
 
-/* Outer rounded card that holds the split layout */
-.register-card {
+/* dark mode support */
+.dark .auth-page {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+}
+
+/* Outer rounded card */
+.auth-card {
   display: flex;
-  width: 920px;
+  width: 920px; /* default large card for register, can shrink for login */
   max-width: 96%;
   min-height: 560px;
   border-radius: 18px;
@@ -25,13 +30,13 @@
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.register-card:hover {
+.auth-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 25px 60px rgba(124, 58, 237, 0.55);
 }
 
 /* LEFT: form area */
-.register-left {
+.auth-left {
   width: 48%;
   padding: 40px 36px;
   display: flex;
@@ -42,16 +47,12 @@
   transition: background 0.3s ease;
 }
 
-/* dark mode support */
-.dark .register-page {
-  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
-}
-.dark .register-left {
+.dark .auth-left {
   background: rgba(0, 0, 0, 0.25);
 }
 
 /* card inside left side */
-.register-form {
+.auth-form {
   width: 100%;
   max-width: 340px;
   padding: 1rem;
@@ -62,13 +63,13 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.register-form:hover {
+.auth-form:hover {
   transform: scale(1.02);
   box-shadow: 0 12px 32px rgba(124, 58, 237, 0.35);
 }
 
 /* Title */
-.register-form h2 {
+.auth-form h2 {
   margin: 0 0 20px;
   font-size: 2rem;
   font-weight: 700;
@@ -77,15 +78,15 @@
   text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
-.dark .register-form h2 { color: #f9fafb; }
+.dark .auth-form h2 { color: #f9fafb; }
 
 /* inputs */
-.register-form .input {
-  width: 100%;
+.auth-form .input {
+  width: 90%;
   margin-bottom: 14px;
 }
 
-.register-form input {
+.auth-form input {
   width: 100%;
   padding: 12px 14px;
   border-radius: 8px;
@@ -96,19 +97,19 @@
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
-.register-form input::placeholder {
+.auth-form input::placeholder {
   color: rgba(255,255,255,0.7);
 }
 
-.register-form input:focus {
+.auth-form input:focus {
   outline: none;
-  border-color: #c084fc; /* light purple */
+  border-color: #c084fc;
   background: rgba(255,255,255,0.25);
   box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
 }
 
 /* button */
-.register-form button {
+.auth-form button {
   width: 100%;
   padding: 12px 14px;
   border-radius: 10px;
@@ -123,24 +124,24 @@
   transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.register-form button:hover {
+.auth-form button:hover {
   background: linear-gradient(90deg,#a855f7,#9333ea);
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(139,92,246,0.6);
 }
 
 /* messages */
-.register-success, .register-error {
+.auth-success, .auth-error {
   text-align: center;
   margin-top: 12px;
   font-weight: 600;
 }
 
-.register-success { color: #22c55e; }
-.register-error { color: #ef4444; }
+.auth-success { color: #22c55e; }
+.auth-error { color: #ef4444; }
 
-/* RIGHT: image area */
-.register-right {
+/* RIGHT: image area for Register, LEFT for Login */
+.auth-right {
   width: 52%;
   position: relative;
   min-height: 560px;
@@ -149,10 +150,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: slideInRight 1s ease forwards;
 }
 
-/* purple gradient overlay */
-.register-right::before {
+/* Login page image on LEFT */
+.auth-left-image {
+  width: 52%;
+  position: relative;
+  min-height: 560px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: slideInLeft 1s ease forwards;
+}
+
+/* gradient overlay */
+.auth-right::before,
+.auth-left-image::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -161,10 +177,21 @@
   pointer-events: none;
 }
 
+/* slide-in animations */
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
 /* responsive: stack on small screens */
 @media (max-width: 820px) {
-  .register-card { flex-direction: column; min-height: auto; }
-  .register-left, .register-right { width: 100%; }
-  .register-right { display: none; }
-  .register-left { padding: 28px; }
+  .auth-card { flex-direction: column; min-height: auto; }
+  .auth-left, .auth-right, .auth-left-image { width: 100%; }
+  .auth-right, .auth-left-image { display: none; }
+  .auth-left { padding: 28px; }
 }
