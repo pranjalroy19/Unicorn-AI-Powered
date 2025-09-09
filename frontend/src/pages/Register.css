@@ -1,85 +1,67 @@
-/* Container for centering the form */
+/* Full container with futuristic background */
 .register-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  background: url() no-repeat center center/cover; /* ✅ place bg-network.jpg in /public */
   padding: 2rem;
-  background: #f3f4f6; /* light background */
-  transition: background 0.3s ease;
+  gap: 2rem;
 }
 
-.dark .register-container {
-  background: #111827; /* dark background */
-}
-
-/* Form Card */
-.register-form {
-  background: #ffffff;
-  padding: 2.5rem 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+/* Form card */
+.form-box {
+  background: #1d3557; /* dark blue */
+  padding: 2.5rem 3rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
   width: 100%;
-  max-width: 400px;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  max-width: 380px;
 }
 
-.dark .register-form {
-  background: #1f2937; /* dark form background */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-
-/* Form Title */
+/* Title */
 .register-form h2 {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 2rem;
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #111827;
+  color: #ffffff;
+  font-weight: bold;
 }
 
-.dark .register-form h2 {
-  color: #f9fafb;
-}
-
-/* Input Fields */
+/* Inputs */
 .register-form input {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.9rem;
   margin-bottom: 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid #d1d5db; /* light border */
+  border-radius: 0.6rem;
+  border: none;
+  background: #b0c4de;
   font-size: 1rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+  color: #0f172a;
 }
 
 .register-form input:focus {
   outline: none;
-  border-color: #3b82f6; /* Tailwind blue-500 */
-  box-shadow: 0 0 0 2px #93c5fd;
+  border: 2px solid #38bdf8;
+  box-shadow: 0 0 10px #38bdf8;
 }
 
-.dark .register-form input {
-  background: #374151; /* gray-700 */
-  color: #f9fafb;
-  border: 1px solid #4b5563; /* gray-600 */
-}
-
-/* Submit Button */
+/* Button */
 .register-form button {
   width: 100%;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  background-color: #3b82f6; /* Tailwind blue-500 */
-  color: white;
-  font-weight: 600;
-  font-size: 1rem;
+  padding: 0.9rem;
+  border-radius: 0.6rem;
+  border: none;
+  background: #c6ff40; /* neon green */
+  color: #111;
+  font-size: 1.1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: 0.3s ease;
 }
 
 .register-form button:hover {
-  background-color: #2563eb; /* Tailwind blue-600 */
+  background: #b2fa2c;
   transform: translateY(-2px);
 }
 
@@ -92,19 +74,32 @@
 }
 
 .register-success {
-  color: #22c55e; /* green-500 */
+  color: #22c55e;
 }
 
 .register-error {
-  color: #ef4444; /* red-500 */
+  color: #ef4444;
+}
+
+/* Robot image */
+.robot-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.robot-image {
+  max-height: 500px;
+  width: auto;
 }
 
 /* Responsive */
-@media (max-width: 480px) {
-  .register-form {
-    padding: 2rem 1.5rem;
+@media (max-width: 768px) {
+  .register-container {
+    flex-direction: column;
+    text-align: center;
   }
-  .register-form h2 {
-    font-size: 1.5rem;
+  .robot-image {
+    max-height: 300px;
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Register.css";
 
 function Register({ darkMode }) {
@@ -10,8 +10,9 @@ function Register({ darkMode }) {
 
   const [message, setMessage] = useState({ type: "", text: "" });
 
-  // Optional: apply dark mode class to container
-  const containerClass = darkMode ? "register-container dark" : "register-container light";
+  const containerClass = darkMode
+    ? "register-container dark"
+    : "register-container light";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,13 +21,11 @@ function Register({ darkMode }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Simple validation
     if (!formData.name || !formData.email || !formData.password) {
       setMessage({ type: "error", text: "All fields are required!" });
       return;
     }
 
-    // Here you can call your API to register user
     console.log("Register Data:", formData);
     setMessage({ type: "success", text: "Registered successfully!" });
     setFormData({ name: "", email: "", password: "" });
@@ -35,54 +34,69 @@ function Register({ darkMode }) {
   return React.createElement(
     "div",
     { className: containerClass },
-    React.createElement(
-      "form",
-      { className: "register-form", onSubmit: handleSubmit },
-      [
-        React.createElement("h2", { key: "title" }, "Register"),
-        React.createElement("input", {
-          key: "name",
-          type: "text",
-          name: "name",
-          placeholder: "Name",
-          value: formData.name,
-          onChange: handleChange,
-        }),
-        React.createElement("input", {
-          key: "email",
-          type: "email",
-          name: "email",
-          placeholder: "Email",
-          value: formData.email,
-          onChange: handleChange,
-        }),
-        React.createElement("input", {
-          key: "password",
-          type: "password",
-          name: "password",
-          placeholder: "Password",
-          value: formData.password,
-          onChange: handleChange,
-        }),
+    [
+      React.createElement(
+        "div",
+        { key: "form-box", className: "form-box" },
         React.createElement(
-          "button",
-          { key: "submit", type: "submit" },
-          "Register"
-        ),
-        message.text &&
-          React.createElement(
-            "p",
-            {
-              key: "msg",
-              className:
-                message.type === "success"
-                  ? "register-success"
-                  : "register-error",
-            },
-            message.text
-          ),
-      ]
-    )
+          "form",
+          { className: "register-form", onSubmit: handleSubmit },
+          [
+            React.createElement("h2", { key: "title" }, "Register"),
+            React.createElement("input", {
+              key: "name",
+              type: "text",
+              name: "name",
+              placeholder: "NAME",
+              value: formData.name,
+              onChange: handleChange,
+            }),
+            React.createElement("input", {
+              key: "email",
+              type: "email",
+              name: "email",
+              placeholder: "EMAIL",
+              value: formData.email,
+              onChange: handleChange,
+            }),
+            React.createElement("input", {
+              key: "password",
+              type: "password",
+              name: "password",
+              placeholder: "PASSWORD",
+              value: formData.password,
+              onChange: handleChange,
+            }),
+            React.createElement(
+              "button",
+              { key: "submit", type: "submit" },
+              "REGISTER"
+            ),
+            message.text &&
+              React.createElement(
+                "p",
+                {
+                  key: "msg",
+                  className:
+                    message.type === "success"
+                      ? "register-success"
+                      : "register-error",
+                },
+                message.text
+              ),
+          ]
+        )
+      ),
+      React.createElement(
+        "div",
+        { key: "robot-box", className: "robot-box" },
+        React.createElement("img", {
+          src: "/robot.png", // ✅ place robot.png inside /public folder
+          alt: "AI Robot",
+          className: "robot-image",
+        })
+      ),
+    ]
   );
 }
 
