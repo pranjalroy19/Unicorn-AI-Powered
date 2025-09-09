@@ -1,10 +1,11 @@
 // src/pages/Login.js
 import React, { useState } from "react";
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
-
+    const navigate = useNavigate()
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -13,6 +14,7 @@ function Login() {
     e.preventDefault();
     console.log("Login Data:", formData);
     alert("Login submitted!");
+    navigate("/Home")
   };
 
   return React.createElement(
