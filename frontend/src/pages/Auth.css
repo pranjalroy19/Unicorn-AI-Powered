@@ -1,197 +1,94 @@
-/* Auth.css */
-
-/* page background */
+/* 🌈 Page background */
 .auth-page {
-  height: 95vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #a855f7 100%);
-  transition: background 0.5s ease;
-  padding: 0;
+  background: url('../assets/robots-bg.png') no-repeat center center fixed;
+  background-size: cover;
+  background-color: #0f172a;
+  padding: 20px;
+  filter: contrast(110%) brightness(105%) saturate(115%);
+  flex-direction: column; /* center form vertically and horizontally */
+  gap: 2rem;
 }
 
-/* dark mode support */
-.dark .auth-page {
-  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
-}
-
-/* Outer rounded card */
+/* Form card */
 .auth-card {
+  width: 400px;
+  min-height: 40px;
+  padding: 2rem;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
   display: flex;
-  width: 920px; /* default large card for register, can shrink for login */
-  max-width: 96%;
-  min-height: 560px;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(124, 58, 237, 0.35);
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(12px);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.auth-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 25px 60px rgba(124, 58, 237, 0.55);
-}
-
-/* LEFT: form area */
-.auth-left {
-  width: 48%;
-  padding: 40px 36px;
-  display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  transition: background 0.3s ease;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  transition: all 0.35s ease-in-out;
+  animation: floatCard 4s ease-in-out infinite; /* floating only */
+  opacity: 1; /* visible immediately */
 }
 
-.dark .auth-left {
-  background: rgba(0, 0, 0, 0.25);
+/* Floating keyframes */
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
 }
 
-/* card inside left side */
-.auth-form {
-  width: 100%;
-  max-width: 340px;
-  padding: 1rem;
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.auth-form:hover {
-  transform: scale(1.02);
-  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.35);
+/* Hover effect remains */
+.auth-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 12px 32px rgba(59,130,246,0.4);
 }
 
 /* Title */
-.auth-form h2 {
-  margin: 0 0 20px;
-  font-size: 2rem;
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  text-align: center;
-  color: #ffffff;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  color: #fff;
 }
 
-.dark .auth-form h2 { color: #f9fafb; }
-
-/* inputs */
-.auth-form .input {
-  width: 90%;
-  margin-bottom: 14px;
-}
-
-.auth-form input {
-  width: 100%;
-  padding: 12px 14px;
+/* Inputs */
+.auth-card input {
+  width: 94%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.3);
   font-size: 1rem;
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-}
-
-.auth-form input::placeholder {
-  color: rgba(255,255,255,0.7);
-}
-
-.auth-form input:focus {
-  outline: none;
-  border-color: #c084fc;
   background: rgba(255,255,255,0.25);
-  box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+  color: #000; /* black text */
+  transition: all 0.3s ease;
 }
 
-/* button */
-.auth-form button {
+.auth-card input::placeholder { color: #fff; }
+
+.auth-card input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background: rgba(255,255,255,0.4);
+}
+
+/* Buttons */
+.auth-card button {
   width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
+  padding: 12px;
   border: none;
-  font-weight: 600;
+  border-radius: 8px;
   font-size: 1rem;
-  cursor: pointer;
-  background: linear-gradient(90deg,#8b5cf6,#a855f7);
-  color: #fff;
-  margin-top: 10px;
-  box-shadow: 0 6px 18px rgba(139,92,246,0.4);
-  transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.auth-form button:hover {
-  background: linear-gradient(90deg,#a855f7,#9333ea);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(139,92,246,0.6);
-}
-
-/* messages */
-.auth-success, .auth-error {
-  text-align: center;
-  margin-top: 12px;
   font-weight: 600;
+  cursor: pointer;
+  background: #3b82f6;
+  color: #fff;
+  transition: background 0.3s ease;
 }
 
-.auth-success { color: #22c55e; }
-.auth-error { color: #ef4444; }
+.auth-card button:hover { background: #2563eb; }
 
-/* RIGHT: image area for Register, LEFT for Login */
-.auth-right {
-  width: 52%;
-  position: relative;
-  min-height: 560px;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: slideInRight 1s ease forwards;
-}
-
-/* Login page image on LEFT */
-.auth-left-image {
-  width: 52%;
-  position: relative;
-  min-height: 560px;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: slideInLeft 1s ease forwards;
-}
-
-/* gradient overlay */
-.auth-right::before,
-.auth-left-image::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(124,58,237,0.45) 0%, rgba(236,72,153,0.25) 60%);
-  mix-blend-mode: overlay;
-  pointer-events: none;
-}
-
-/* slide-in animations */
-@keyframes slideInRight {
-  from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-
-@keyframes slideInLeft {
-  from { transform: translateX(-100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-
-/* responsive: stack on small screens */
-@media (max-width: 820px) {
-  .auth-card { flex-direction: column; min-height: auto; }
-  .auth-left, .auth-right, .auth-left-image { width: 100%; }
-  .auth-right, .auth-left-image { display: none; }
-  .auth-left { padding: 28px; }
-}
+/* Success & Error messages */
+.auth-success { margin-top:10px; color:#16a34a; font-size:0.9rem; }
+.auth-error { margin-top:10px; color:#dc2626; font-size:0.9rem; }
