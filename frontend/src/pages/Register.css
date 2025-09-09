@@ -1,45 +1,3 @@
-<<<<<<< HEAD
-/* Full container with futuristic background */
-.register-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: url() no-repeat center center/cover; /* ✅ place bg-network.jpg in /public */
-  padding: 2rem;
-  gap: 2rem;
-}
-
-/* Form card */
-.form-box {
-  background: #1d3557; /* dark blue */
-  padding: 2.5rem 3rem;
-  border-radius: 0.8rem;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-  width: 100%;
-  max-width: 380px;
-}
-
-/* Title */
-.register-form h2 {
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #ffffff;
-  font-weight: bold;
-}
-
-/* Inputs */
-.register-form input {
-  width: 100%;
-  padding: 0.9rem;
-  margin-bottom: 1rem;
-  border-radius: 0.6rem;
-  border: none;
-  background: #b0c4de;
-  font-size: 1rem;
-  color: #0f172a;
-=======
 /* Register.css */
 
 /* page background */
@@ -140,34 +98,10 @@
 
 .register-form input::placeholder {
   color: rgba(255,255,255,0.7);
->>>>>>> 4abbeed0158fd3859e67d8aa17d7c53894ef7432
 }
 
 .register-form input:focus {
   outline: none;
-<<<<<<< HEAD
-  border: 2px solid #38bdf8;
-  box-shadow: 0 0 10px #38bdf8;
-}
-
-/* Button */
-.register-form button {
-  width: 100%;
-  padding: 0.9rem;
-  border-radius: 0.6rem;
-  border: none;
-  background: #c6ff40; /* neon green */
-  color: #111;
-  font-size: 1.1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.register-form button:hover {
-  background: #b2fa2c;
-  transform: translateY(-2px);
-=======
   border-color: #c084fc; /* light purple */
   background: rgba(255,255,255,0.25);
   box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
@@ -193,7 +127,6 @@
   background: linear-gradient(90deg,#a855f7,#9333ea);
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(139,92,246,0.6);
->>>>>>> 4abbeed0158fd3859e67d8aa17d7c53894ef7432
 }
 
 /* messages */
@@ -203,37 +136,6 @@
   font-weight: 600;
 }
 
-<<<<<<< HEAD
-.register-success {
-  color: #22c55e;
-}
-
-.register-error {
-  color: #ef4444;
-}
-
-/* Robot image */
-.robot-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.robot-image {
-  max-height: 500px;
-  width: auto;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .register-container {
-    flex-direction: column;
-    text-align: center;
-  }
-  .robot-image {
-    max-height: 300px;
-  }
-=======
 .register-success { color: #22c55e; }
 .register-error { color: #ef4444; }
 
@@ -265,5 +167,4 @@
   .register-left, .register-right { width: 100%; }
   .register-right { display: none; }
   .register-left { padding: 28px; }
->>>>>>> 4abbeed0158fd3859e67d8aa17d7c53894ef7432
 }
