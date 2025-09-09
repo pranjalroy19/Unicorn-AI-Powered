@@ -1,110 +1,170 @@
-/* Container for centering the form */
-.register-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Register.css */
+
+/* page background */
+.register-page {
   min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #a855f7 100%);
   padding: 2rem;
-  background: #f3f4f6; /* light background */
+  transition: background 0.5s ease;
+}
+
+/* Outer rounded card that holds the split layout */
+.register-card {
+  display: flex;
+  width: 920px;
+  max-width: 96%;
+  min-height: 560px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(124, 58, 237, 0.35);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.register-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 60px rgba(124, 58, 237, 0.55);
+}
+
+/* LEFT: form area */
+.register-left {
+  width: 48%;
+  padding: 40px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
   transition: background 0.3s ease;
 }
 
-.dark .register-container {
-  background: #111827; /* dark background */
+/* dark mode support */
+.dark .register-page {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+}
+.dark .register-left {
+  background: rgba(0, 0, 0, 0.25);
 }
 
-/* Form Card */
+/* card inside left side */
 .register-form {
-  background: #ffffff;
-  padding: 2.5rem 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  max-width: 340px;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.dark .register-form {
-  background: #1f2937; /* dark form background */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+.register-form:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.35);
 }
 
-/* Form Title */
+/* Title */
 .register-form h2 {
-  font-size: 1.75rem;
+  margin: 0 0 20px;
+  font-size: 2rem;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 1.5rem;
-  color: #111827;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
-.dark .register-form h2 {
-  color: #f9fafb;
+.dark .register-form h2 { color: #f9fafb; }
+
+/* inputs */
+.register-form .input {
+  width: 100%;
+  margin-bottom: 14px;
 }
 
-/* Input Fields */
 .register-form input {
   width: 100%;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid #d1d5db; /* light border */
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.3);
   font-size: 1rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.register-form input::placeholder {
+  color: rgba(255,255,255,0.7);
 }
 
 .register-form input:focus {
   outline: none;
-  border-color: #3b82f6; /* Tailwind blue-500 */
-  box-shadow: 0 0 0 2px #93c5fd;
+  border-color: #c084fc; /* light purple */
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
 }
 
-.dark .register-form input {
-  background: #374151; /* gray-700 */
-  color: #f9fafb;
-  border: 1px solid #4b5563; /* gray-600 */
-}
-
-/* Submit Button */
+/* button */
 .register-form button {
   width: 100%;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  background-color: #3b82f6; /* Tailwind blue-500 */
-  color: white;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
   font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  background: linear-gradient(90deg,#8b5cf6,#a855f7);
+  color: #fff;
+  margin-top: 10px;
+  box-shadow: 0 6px 18px rgba(139,92,246,0.4);
+  transition: background 0.3s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .register-form button:hover {
-  background-color: #2563eb; /* Tailwind blue-600 */
-  transform: translateY(-2px);
+  background: linear-gradient(90deg,#a855f7,#9333ea);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(139,92,246,0.6);
 }
 
-/* Success & Error Messages */
-.register-success,
-.register-error {
+/* messages */
+.register-success, .register-error {
   text-align: center;
-  margin-top: 1rem;
-  font-weight: 500;
+  margin-top: 12px;
+  font-weight: 600;
 }
 
-.register-success {
-  color: #22c55e; /* green-500 */
+.register-success { color: #22c55e; }
+.register-error { color: #ef4444; }
+
+/* RIGHT: image area */
+.register-right {
+  width: 52%;
+  position: relative;
+  min-height: 560px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.register-error {
-  color: #ef4444; /* red-500 */
+/* purple gradient overlay */
+.register-right::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(124,58,237,0.45) 0%, rgba(236,72,153,0.25) 60%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
-  .register-form {
-    padding: 2rem 1.5rem;
-  }
-  .register-form h2 {
-    font-size: 1.5rem;
-  }
+/* responsive: stack on small screens */
+@media (max-width: 820px) {
+  .register-card { flex-direction: column; min-height: auto; }
+  .register-left, .register-right { width: 100%; }
+  .register-right { display: none; }
+  .register-left { padding: 28px; }
 }
