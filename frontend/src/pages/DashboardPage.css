@@ -1,0 +1,225 @@
+/* Dashboard Layout */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: #f9fafb;
+}
+
+.sidebar {
+  width: 240px;
+  background: linear-gradient(180deg, #7c3aed, #9333ea);
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.menu {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.menu a {
+  color: #e0e7ff;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.3s;
+}
+
+.menu a:hover,
+.menu a.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.logout {
+  margin-top: auto;
+  padding: 12px;
+  border: none;
+  background: #ef4444;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.logout:hover {
+  background: #dc2626;
+}
+
+.main {
+  flex: 1;
+  padding: 20px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  border-radius: 50%;
+}
+
+/* Cards Grid */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+.card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #7c3aed;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.25);
+}
+
+/* Activity Section */
+.activity {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.activity h2 {
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.activity ul {
+  list-style: none;
+  padding: 0;
+}
+
+.activity li {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: #4b5563;
+}
+
+/* Chatbot Section */
+.chatbot {
+  margin-top: 30px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 16px rgba(124, 58, 237, 0.2);
+  transition: all 0.3s ease;
+}
+
+.chatbot-header {
+  padding: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(90deg, #8b5cf6, #a855f7);
+  color: #fff;
+  cursor: pointer;
+}
+
+.chatbot-body {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.chat-message {
+  max-width: 80%;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+}
+
+.chat-message.user {
+  margin-left: auto;
+  background: #7c3aed;
+  color: #fff;
+}
+
+.chat-message.bot {
+  margin-right: auto;
+  background: #f3e8ff;
+  color: #1f2937;
+  border: 1px solid #ddd;
+}
+
+.chat-input {
+  display: flex;
+  border-top: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+}
+
+.chat-input button {
+  background: #7c3aed;
+  color: #fff;
+  border: none;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.chat-input button:hover {
+  background: #5b21b6;
+}
