@@ -4,12 +4,13 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import { AnimatePresence } from "framer-motion";
 
 import Navbar from "./components/Navbar.js";
-import DashboardPage from "./pages/DashboardPage.js";
 import Home from "./pages/Home.js";
 import Login from "./pages/Login.js";
 import Register from "./pages/Register.js";
+import DashboardPage from "./pages/DashboardPage.js";
+import AboutPage from "./pages/AboutPage.js";
 
-// Wrap Routes in a component to use location
+// Animated Routes wrapper to enable page transitions
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -20,6 +21,7 @@ function AnimatedRoutes() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
     </AnimatePresence>
   );
