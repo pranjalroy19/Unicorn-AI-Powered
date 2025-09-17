@@ -33,40 +33,32 @@ function DashboardPage() {
     if (!file) return;
     const reader = new FileReader();
     reader.onloadend = () =>
-      setUser((prev) => {
-        const updated = { ...prev, profilePic: reader.result };
-        localStorage.setItem("user", JSON.stringify(updated));
-        return updated;
-      });
+      setUser((prev) => ({ ...prev, profilePic: reader.result }));
     reader.readAsDataURL(file);
   };
 
   const handleUsernameChange = () => {
     const newName = prompt(t("updateUsername"), user?.username || "");
     if (newName && newName.trim() !== "") {
-      setUser((prev) => {
-        const updated = { ...prev, username: newName.trim() };
-        localStorage.setItem("user", JSON.stringify(updated));
-        return updated;
-      });
+      setUser((prev) => ({ ...prev, username: newName.trim() }));
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ ...user, username: newName.trim() })
+      );
     }
   };
 
   const handleLanguageChange = (lang) => {
-    setUser((prev) => {
-      const updated = { ...prev, language: lang };
-      localStorage.setItem("user", JSON.stringify(updated));
-      return updated;
-    });
+    setUser((prev) => ({ ...prev, language: lang }));
     i18n.changeLanguage(lang);
+    localStorage.setItem("user", JSON.stringify({ ...user, language: lang }));
   };
 
   const toggleTheme = () => {
     setUser((prev) => {
       const newTheme = prev?.theme === "light" ? "dark" : "light";
-      const updated = { ...prev, theme: newTheme };
-      localStorage.setItem("user", JSON.stringify(updated));
-      return updated;
+      localStorage.setItem("user", JSON.stringify({ ...user, theme: newTheme }));
+      return { ...prev, theme: newTheme };
     });
   };
 
@@ -74,31 +66,23 @@ function DashboardPage() {
   const handleChangePassword = () => {
     const newPassword = prompt("Enter new password:");
     if (!newPassword) return alert("Password not changed.");
-
-    setUser((prev) => {
-      const updated = { ...prev, password: newPassword };
-      localStorage.setItem("user", JSON.stringify(updated));
-      return updated;
-    });
-
+    // In real app: send to backend API to update password
     alert("Password updated successfully!");
   };
 
   const handleDeleteAccount = () => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete your account? This cannot be undone!"
+      "Are you sure you want to delete your account? This cannot be undone."
     );
     if (!confirmDelete) return;
 
-    // Remove user data from localStorage
-    localStorage.removeItem("user");
+    // Remove user from context & localStorage
     localStorage.removeItem("isLoggedIn");
-
-    // Clear user from context
+    localStorage.removeItem("user");
     setUser(null);
 
-    // Redirect to login page
-    navigate("/login", { replace: true });
+    alert("Account deleted successfully!");
+    navigate("/login");
   };
 
   return (
