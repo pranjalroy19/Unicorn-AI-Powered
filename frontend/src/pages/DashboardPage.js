@@ -4,52 +4,57 @@ import "./DashboardPage.css";
 import { FaUser, FaCog, FaBell, FaLock } from "react-icons/fa";
 import { useUser } from "../context/UserContext.js";
 import { useTranslation } from "react-i18next";
+import { Navigate } from "react-router-dom";
 
 function DashboardPage() {
   const [activeSection, setActiveSection] = useState("profile");
   const { user, setUser } = useUser();
   const { t, i18n } = useTranslation();
 
-  // Apply theme
+  // ✅ Apply theme safely
   useEffect(() => {
+    if (!user) return;
     if (user.theme === "dark") document.documentElement.classList.add("dark");
     else document.documentElement.classList.remove("dark");
-  }, [user.theme]);
+  }, [user?.theme]);
 
-  // Apply language globally
+  // ✅ Apply language globally
   useEffect(() => {
-    i18n.changeLanguage(user.language);
-  }, [user.language, i18n]);
+    if (user?.language) i18n.changeLanguage(user.language);
+  }, [user?.language, i18n]);
+
+  // Redirect if user is not logged in (after hooks)
+  if (!user) return <Navigate to="/login" replace />;
 
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onloadend = () => setUser(prev => ({ ...prev, profilePic: reader.result }));
+    reader.onloadend = () =>
+      setUser((prev) => ({ ...prev, profilePic: reader.result }));
     reader.readAsDataURL(file);
   };
 
   const handleUsernameChange = () => {
-    const newName = prompt(t("updateUsername"), user.username || "");
+    const newName = prompt(t("updateUsername"), user?.username || "");
     if (newName && newName.trim() !== "") {
-      setUser(prev => ({ ...prev, username: newName.trim() }));
+      setUser((prev) => ({ ...prev, username: newName.trim() }));
     }
   };
 
   const handleLanguageChange = (lang) => {
-    setUser(prev => ({ ...prev, language: lang }));
+    setUser((prev) => ({ ...prev, language: lang }));
     i18n.changeLanguage(lang);
     localStorage.setItem("language", lang);
   };
 
- const toggleTheme = () => {
-  setUser(prev => {
-    const newTheme = prev.theme === "light" ? "dark" : "light";
-    localStorage.setItem("theme", newTheme); // ✅ store the new theme
-    return { ...prev, theme: newTheme };
-  });
-};
-
+  const toggleTheme = () => {
+    setUser((prev) => {
+      const newTheme = prev?.theme === "light" ? "dark" : "light";
+      localStorage.setItem("theme", newTheme);
+      return { ...prev, theme: newTheme };
+    });
+  };
 
   return (
     <div className="dashboard-container">
@@ -104,7 +109,11 @@ function DashboardPage() {
                   style={{ display: "none" }}
                   id="profilePicInput"
                 />
-                <button onClick={() => document.getElementById("profilePicInput").click()}>
+                <button
+                  onClick={() =>
+                    document.getElementById("profilePicInput").click()
+                  }
+                >
                   {t("upload")}
                 </button>
               </div>
@@ -126,19 +135,18 @@ function DashboardPage() {
               <label>{t("language")}</label>
               <select
                 className="dropdown"
-                value={user.language}
+                value={user?.language || "en"}
                 onChange={(e) => handleLanguageChange(e.target.value)}
               >
                 <option value="en">English</option>
                 <option value="hi">Hindi</option>
-                {/* Add more languages here */}
               </select>
             </div>
 
             <div className="settings-option">
               <label>{t("theme")}</label>
               <button onClick={toggleTheme}>
-                {user.theme === "light" ? t("toggleDark") : t("toggleLight")}
+                {user?.theme === "light" ? t("toggleDark") : t("toggleLight")}
               </button>
             </div>
           </div>

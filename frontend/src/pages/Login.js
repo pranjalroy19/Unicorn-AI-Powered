@@ -2,12 +2,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useUser } from "../context/UserContext.js"; // ✅ import context
 import "./Auth.css";
 
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState({ type: "", text: "" });
   const navigate = useNavigate();
+  const { setUser } = useUser(); // ✅ get setUser from context
 
   const handleChange = (e) =>
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -21,14 +23,24 @@ function Login() {
     }
 
     // ✅ simulate login success
+    const userData = {
+      username: "Akash",       // you can fetch this from API
+      email: formData.email,
+      theme: "light",
+      language: "en",
+      profilePic: null,
+    };
+
     localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("user", JSON.stringify(userData));
+    setUser(userData); // ✅ update context
 
     setMessage({ type: "success", text: "Login successful!" });
 
     // ✅ redirect to dashboard
     setTimeout(() => {
       navigate("/dashboard");
-    }, 800);
+    }, 500);
   };
 
   return (
