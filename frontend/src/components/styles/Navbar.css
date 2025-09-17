@@ -57,3 +57,36 @@
   color: #ffffff;
   font-weight: 600;
 }
+/* Profile avatar next to Hi */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: #e2e8f0;
+}
+
+.nav-profile-pic {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #3b82f6; /* optional nice blue border */
+}
+
+.nav-profile-pic-placeholder {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #334155;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  font-size: 1.2rem;
+}
+
+.nav-username {
+  font-size: 1rem;
+  font-weight: 500;
+}

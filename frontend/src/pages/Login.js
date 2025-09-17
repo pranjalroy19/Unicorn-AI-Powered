@@ -2,14 +2,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useUser } from "../context/UserContext.js"; // ✅ import context
+import { useUser } from "../context/UserContext.js";
 import "./Auth.css";
 
 function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [message, setMessage] = useState({ type: "", text: "" });
   const navigate = useNavigate();
-  const { setUser } = useUser(); // ✅ get setUser from context
+  const { setUser } = useUser();
 
   const handleChange = (e) =>
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -22,17 +22,20 @@ function Login() {
       return;
     }
 
-    // fetch user from localStorage
-    const savedUser = JSON.parse(localStorage.getItem("user"));
+    // Load users array
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const existingUser = users.find((u) => u.email === formData.email);
 
-    if (savedUser && savedUser.email === formData.email) {
-      // ✅ check password
-      if (savedUser.password !== formData.password) {
+    if (existingUser) {
+      // check password
+      if (existingUser.password !== formData.password) {
         setMessage({ type: "error", text: "Incorrect password!" });
         return;
       }
 
-      setUser(savedUser);
+      // login existing user (restores profilePic etc.)
+      setUser(existingUser);
+      localStorage.setItem("user", JSON.stringify(existingUser));
       localStorage.setItem("isLoggedIn", "true");
       setMessage({ type: "success", text: "Login successful!" });
 
@@ -40,23 +43,25 @@ function Login() {
       return;
     }
 
-    // If user not in localStorage, simulate new account
+    // If new user, create and store
     const dynamicUsername = formData.email.split("@")[0];
 
-    const userData = {
+    const newUser = {
       username: dynamicUsername,
       email: formData.email,
-      password: formData.password, // store password
+      password: formData.password,
       theme: "light",
       language: "en",
       profilePic: null,
     };
 
-    localStorage.setItem("user", JSON.stringify(userData));
+    const updatedUsers = [...users, newUser];
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+    localStorage.setItem("user", JSON.stringify(newUser));
     localStorage.setItem("isLoggedIn", "true");
-    setUser(userData);
-    setMessage({ type: "success", text: "Login successful!" });
+    setUser(newUser);
 
+    setMessage({ type: "success", text: "Login successful!" });
     setTimeout(() => navigate("/dashboard"), 500);
   };
 

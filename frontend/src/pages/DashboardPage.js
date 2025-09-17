@@ -24,65 +24,86 @@ function DashboardPage() {
     if (user?.language) i18n.changeLanguage(user.language);
   }, [user?.language, i18n]);
 
-  // Redirect if not logged in
+  // Redirect if not logged in (after hooks)
   if (!user) return <Navigate to="/login" replace />;
+
+  // helper: sync updated user to context, "user" key and "users" array
+  const syncUserToStorage = (updatedUser) => {
+    // update context & single-user storage
+    setUser(updatedUser);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+
+    // update users array (persist per-email)
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const idx = users.findIndex((u) => u.email === updatedUser.email);
+    if (idx > -1) {
+      users[idx] = { ...users[idx], ...updatedUser };
+    } else {
+      users.push(updatedUser);
+    }
+    localStorage.setItem("users", JSON.stringify(users));
+  };
 
   // Profile handlers
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onloadend = () =>
-      setUser((prev) => ({ ...prev, profilePic: reader.result }));
+    reader.onloadend = () => {
+      const updated = { ...user, profilePic: reader.result };
+      syncUserToStorage(updated);
+    };
     reader.readAsDataURL(file);
   };
 
   const handleUsernameChange = () => {
     const newName = prompt(t("updateUsername"), user?.username || "");
     if (newName && newName.trim() !== "") {
-      setUser((prev) => ({ ...prev, username: newName.trim() }));
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ ...user, username: newName.trim() })
-      );
+      const updated = { ...user, username: newName.trim() };
+      syncUserToStorage(updated);
     }
   };
 
   const handleLanguageChange = (lang) => {
-    setUser((prev) => ({ ...prev, language: lang }));
+    const updated = { ...user, language: lang };
+    syncUserToStorage(updated);
     i18n.changeLanguage(lang);
-    localStorage.setItem("user", JSON.stringify({ ...user, language: lang }));
   };
 
   const toggleTheme = () => {
-    setUser((prev) => {
-      const newTheme = prev?.theme === "light" ? "dark" : "light";
-      localStorage.setItem("user", JSON.stringify({ ...user, theme: newTheme }));
-      return { ...prev, theme: newTheme };
-    });
+    const newTheme = user?.theme === "light" ? "dark" : "light";
+    const updated = { ...user, theme: newTheme };
+    syncUserToStorage(updated);
   };
 
-  // ✅ Account management
+  // Account management
   const handleChangePassword = () => {
     const newPassword = prompt("Enter new password:");
     if (!newPassword) return alert("Password not changed.");
-    // In real app: send to backend API to update password
+
+    const updated = { ...user, password: newPassword };
+    syncUserToStorage(updated);
     alert("Password updated successfully!");
   };
 
   const handleDeleteAccount = () => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete your account? This cannot be undone."
+      "Are you sure you want to delete your account? This cannot be undone!"
     );
     if (!confirmDelete) return;
 
-    // Remove user from context & localStorage
-    localStorage.removeItem("isLoggedIn");
+    // Remove from users array
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const updatedUsers = users.filter((u) => u.email !== user.email);
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+
+    // Remove current session
     localStorage.removeItem("user");
+    localStorage.removeItem("isLoggedIn");
     setUser(null);
 
-    alert("Account deleted successfully!");
-    navigate("/login");
+    // Redirect to login
+    navigate("/login", { replace: true });
   };
 
   return (
