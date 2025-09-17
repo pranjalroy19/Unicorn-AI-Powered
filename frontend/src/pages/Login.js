@@ -22,36 +22,42 @@ function Login() {
       return;
     }
 
-    // ✅ Check if user already registered
-    const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+    // fetch user from localStorage
+    const savedUser = JSON.parse(localStorage.getItem("user"));
 
-    const existingUser = registeredUsers.find(
-      (user) => user.email === formData.email
-    );
+    if (savedUser && savedUser.email === formData.email) {
+      // ✅ check password
+      if (savedUser.password !== formData.password) {
+        setMessage({ type: "error", text: "Incorrect password!" });
+        return;
+      }
 
-    // Use registered username if exists, otherwise create dynamic username from email
-    const username = existingUser?.username || formData.email.split("@")[0];
+      setUser(savedUser);
+      localStorage.setItem("isLoggedIn", "true");
+      setMessage({ type: "success", text: "Login successful!" });
 
-    // Create user data for context & storage
+      setTimeout(() => navigate("/dashboard"), 500);
+      return;
+    }
+
+    // If user not in localStorage, simulate new account
+    const dynamicUsername = formData.email.split("@")[0];
+
     const userData = {
-      username, // ✅ dynamic username
+      username: dynamicUsername,
       email: formData.email,
+      password: formData.password, // store password
       theme: "light",
       language: "en",
       profilePic: null,
     };
 
-    // Save login state & user data
-    localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("user", JSON.stringify(userData));
-    setUser(userData); // ✅ update context
-
+    localStorage.setItem("isLoggedIn", "true");
+    setUser(userData);
     setMessage({ type: "success", text: "Login successful!" });
 
-    // ✅ redirect to dashboard
-    setTimeout(() => {
-      navigate("/dashboard");
-    }, 500);
+    setTimeout(() => navigate("/dashboard"), 500);
   };
 
   return (
@@ -83,7 +89,9 @@ function Login() {
           <button type="submit">Login</button>
           {message.text && (
             <p
-              className={message.type === "success" ? "auth-success" : "auth-error"}
+              className={
+                message.type === "success" ? "auth-success" : "auth-error"
+              }
             >
               {message.text}
             </p>

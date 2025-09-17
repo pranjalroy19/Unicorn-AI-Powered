@@ -4,56 +4,101 @@ import "./DashboardPage.css";
 import { FaUser, FaCog, FaBell, FaLock } from "react-icons/fa";
 import { useUser } from "../context/UserContext.js";
 import { useTranslation } from "react-i18next";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function DashboardPage() {
   const [activeSection, setActiveSection] = useState("profile");
   const { user, setUser } = useUser();
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
-  // ✅ Apply theme safely
+  // Apply theme
   useEffect(() => {
     if (!user) return;
     if (user.theme === "dark") document.documentElement.classList.add("dark");
     else document.documentElement.classList.remove("dark");
   }, [user?.theme]);
 
-  // ✅ Apply language globally
+  // Apply language
   useEffect(() => {
     if (user?.language) i18n.changeLanguage(user.language);
   }, [user?.language, i18n]);
 
-  // Redirect if user is not logged in (after hooks)
+  // Redirect if not logged in
   if (!user) return <Navigate to="/login" replace />;
 
+  // Profile handlers
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
     reader.onloadend = () =>
-      setUser((prev) => ({ ...prev, profilePic: reader.result }));
+      setUser((prev) => {
+        const updated = { ...prev, profilePic: reader.result };
+        localStorage.setItem("user", JSON.stringify(updated));
+        return updated;
+      });
     reader.readAsDataURL(file);
   };
 
   const handleUsernameChange = () => {
     const newName = prompt(t("updateUsername"), user?.username || "");
     if (newName && newName.trim() !== "") {
-      setUser((prev) => ({ ...prev, username: newName.trim() }));
+      setUser((prev) => {
+        const updated = { ...prev, username: newName.trim() };
+        localStorage.setItem("user", JSON.stringify(updated));
+        return updated;
+      });
     }
   };
 
   const handleLanguageChange = (lang) => {
-    setUser((prev) => ({ ...prev, language: lang }));
+    setUser((prev) => {
+      const updated = { ...prev, language: lang };
+      localStorage.setItem("user", JSON.stringify(updated));
+      return updated;
+    });
     i18n.changeLanguage(lang);
-    localStorage.setItem("language", lang);
   };
 
   const toggleTheme = () => {
     setUser((prev) => {
       const newTheme = prev?.theme === "light" ? "dark" : "light";
-      localStorage.setItem("theme", newTheme);
-      return { ...prev, theme: newTheme };
+      const updated = { ...prev, theme: newTheme };
+      localStorage.setItem("user", JSON.stringify(updated));
+      return updated;
     });
+  };
+
+  // ✅ Account management
+  const handleChangePassword = () => {
+    const newPassword = prompt("Enter new password:");
+    if (!newPassword) return alert("Password not changed.");
+
+    setUser((prev) => {
+      const updated = { ...prev, password: newPassword };
+      localStorage.setItem("user", JSON.stringify(updated));
+      return updated;
+    });
+
+    alert("Password updated successfully!");
+  };
+
+  const handleDeleteAccount = () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete your account? This cannot be undone!"
+    );
+    if (!confirmDelete) return;
+
+    // Remove user data from localStorage
+    localStorage.removeItem("user");
+    localStorage.removeItem("isLoggedIn");
+
+    // Clear user from context
+    setUser(null);
+
+    // Redirect to login page
+    navigate("/login", { replace: true });
   };
 
   return (
@@ -98,7 +143,6 @@ function DashboardPage() {
         {activeSection === "profile" && (
           <div className="settings-section">
             <h2>{t("profileSettings")}</h2>
-
             <div className="settings-option">
               <label>{t("changeProfilePic")}</label>
               <div>
@@ -130,7 +174,6 @@ function DashboardPage() {
         {activeSection === "preferences" && (
           <div className="settings-section">
             <h2>{t("preferences")}</h2>
-
             <div className="settings-option">
               <label>{t("language")}</label>
               <select
@@ -171,13 +214,17 @@ function DashboardPage() {
         {activeSection === "account" && (
           <div className="settings-section">
             <h2>{t("accountManagement")}</h2>
+
             <div className="settings-option">
               <label>{t("changePassword")}</label>
-              <button>{t("update")}</button>
+              <button onClick={handleChangePassword}>{t("update")}</button>
             </div>
+
             <div className="settings-option">
               <label>{t("deleteAccount")}</label>
-              <button className="danger">{t("dangerDelete")}</button>
+              <button className="danger" onClick={handleDeleteAccount}>
+                {t("dangerDelete")}
+              </button>
             </div>
           </div>
         )}
