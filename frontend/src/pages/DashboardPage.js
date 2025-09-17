@@ -1,148 +1,132 @@
-// src/pages/Dashboard.js
+// src/pages/DashboardPage.js
 import React, { useState } from "react";
 import "./DashboardPage.css";
-import {
-  FaChartLine,
-  FaTasks,
-  FaUserFriends,
-  FaCog,
-  FaSignOutAlt,
-  FaPaperPlane,
-  FaRobot,
-  FaClock,
-  FaTachometerAlt,
-} from "react-icons/fa";
+import { FaUser, FaCog, FaBell, FaLock } from "react-icons/fa";
 
-const Dashboard = () => {
-  const [messages, setMessages] = useState([
-    { from: "bot", text: "Hello! I’m your Unicorn AI assistant 🦄. How can I help you today?" },
-  ]);
-  const [input, setInput] = useState("");
-  const [chatOpen, setChatOpen] = useState(true);
-
-  const handleSend = () => {
-    if (!input.trim()) return;
-    setMessages([...messages, { from: "user", text: input }]);
-    setInput("");
-
-    // Mock AI reply
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        { from: "bot", text: "I got your message: " + input },
-      ]);
-    }, 1000);
-  };
+function DashboardPage() {
+  const [activeSection, setActiveSection] = useState("profile");
 
   return (
-    <div className="dashboard">
+    <div className="dashboard-container">
       {/* Sidebar */}
       <aside className="sidebar">
-        <h2 className="logo">Unicorn</h2>
-        <nav className="menu">
-          <a href="#" className="active">
-            <FaChartLine /> Overview
-          </a>
-          <a href="#">
-            <FaTasks /> Tasks
-          </a>
-          <a href="#">
-            <FaUserFriends /> Team
-          </a>
-          <a href="#">
-            <FaCog /> Settings
-          </a>
-        </nav>
-        <button className="logout">
-          <FaSignOutAlt /> Logout
+        <button
+          className={activeSection === "profile" ? "active" : ""}
+          onClick={() => setActiveSection("profile")}
+          title="Profile"
+        >
+          <FaUser />
+        </button>
+        <button
+          className={activeSection === "preferences" ? "active" : ""}
+          onClick={() => setActiveSection("preferences")}
+          title="Preferences"
+        >
+          <FaCog />
+        </button>
+        <button
+          className={activeSection === "notifications" ? "active" : ""}
+          onClick={() => setActiveSection("notifications")}
+          title="Notifications"
+        >
+          <FaBell />
+        </button>
+        <button
+          className={activeSection === "account" ? "active" : ""}
+          onClick={() => setActiveSection("account")}
+          title="Account"
+        >
+          <FaLock />
         </button>
       </aside>
 
       {/* Main Content */}
-      <main className="main">
-        <header className="topbar">
-          <h1>Dashboard</h1>
-          <div className="user-info">
-            <img
-              src="https://i.pravatar.cc/40"
-              alt="User"
-              className="user-avatar"
-            />
-            <span className="username">Pranjal</span>
-          </div>
-        </header>
+      <main className="dashboard-main">
+        <h1 className="page-title">Settings</h1>
 
-        {/* Cards Grid */}
-        <section className="cards">
-          <div className="card">
-            <h3>Total Users</h3>
-            <p>1,245</p>
-          </div>
-          <div className="card">
-            <h3>Active Tasks</h3>
-            <p>87</p>
-          </div>
-          <div className="card">
-            <h3><FaClock /> Screen Time</h3>
-            <p>5h 20m</p>
-          </div>
-          <div className="card">
-            <h3><FaTachometerAlt /> Performance</h3>
-            <p>92%</p>
-          </div>
-        </section>
-
-        {/* Activity Section */}
-        <section className="activity">
-          <h2>Recent Activity</h2>
-          <ul>
-            <li>
-              User <strong>Aryan</strong> completed a task ✅
-            </li>
-            <li>
-              New member <strong>Kavya</strong> joined the team 👋
-            </li>
-            <li>
-              Screen time decreased by <strong>20m</strong> ⏳
-            </li>
-          </ul>
-        </section>
-
-        {/* Chatbot Section */}
-        <section className={`chatbot ${chatOpen ? "open" : "closed"}`}>
-          <header
-            className="chatbot-header"
-            onClick={() => setChatOpen(!chatOpen)}
-          >
-            <FaRobot /> Unicorn AI Assistant
-          </header>
-          {chatOpen && (
-            <div className="chatbot-body">
-              <div className="chat-messages">
-                {messages.map((msg, idx) => (
-                  <div key={idx} className={`chat-message ${msg.from}`}>
-                    {msg.text}
-                  </div>
-                ))}
-              </div>
-              <div className="chat-input">
-                <input
-                  type="text"
-                  placeholder="Ask me anything..."
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                />
-                <button onClick={handleSend}>
-                  <FaPaperPlane />
-                </button>
-              </div>
+        {/* Profile Section */}
+        {activeSection === "profile" && (
+          <div className="settings-section">
+            <h2>Profile Settings</h2>
+            <div className="settings-option">
+              <label>Change Profile Picture</label>
+              <button>Upload</button>
             </div>
-          )}
-        </section>
+            <div className="settings-option">
+              <label>Update Username</label>
+              <button>Edit</button>
+            </div>
+          </div>
+        )}
+
+        {/* Preferences Section */}
+        {activeSection === "preferences" && (
+          <div className="settings-section">
+            <h2>Preferences</h2>
+            <div className="settings-option">
+              <label>Language</label>
+              <select className="dropdown">
+                <option>English</option>
+                <option>Hindi</option>
+                <option>Bengali</option>
+                <option>Telugu</option>
+                <option>Marathi</option>
+                <option>Tamil</option>
+                <option>Urdu</option>
+                <option>Gujarati</option>
+                <option>Kannada</option>
+                <option>Odia</option>
+                <option>Punjabi</option>
+                <option>Malayalam</option>
+                <option>Sanskrit</option>
+                <option>French</option>
+                <option>Spanish</option>
+                <option>German</option>
+                <option>Chinese</option>
+                <option>Japanese</option>
+                <option>Korean</option>
+                <option>Russian</option>
+              </select>
+            </div>
+            <div className="settings-option">
+              <label>Theme</label>
+              <button>Toggle Dark/Light</button>
+            </div>
+          </div>
+        )}
+
+        {/* Notifications Section */}
+        {activeSection === "notifications" && (
+          <div className="settings-section">
+            <h2>Notifications</h2>
+            <div className="settings-option">
+              <label>Email Notifications</label>
+              <button>Enable</button>
+            </div>
+            <div className="settings-option">
+              <label>SMS Notifications</label>
+              <button>Enable</button>
+            </div>
+          </div>
+        )}
+
+        {/* Account Section */}
+        {activeSection === "account" && (
+          <div className="settings-section">
+            <h2>Account Management</h2>
+            <div className="settings-option">
+              <label>Change Password</label>
+              <button>Update</button>
+            </div>
+            <div className="settings-option">
+              <label>Delete Account</label>
+              <button className="danger">Delete</button>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
-};
+}
 
-export default Dashboard;
+export default DashboardPage;
