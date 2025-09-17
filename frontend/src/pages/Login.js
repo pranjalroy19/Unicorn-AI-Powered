@@ -22,15 +22,26 @@ function Login() {
       return;
     }
 
-    // ✅ simulate login success
+    // ✅ Check if user already registered
+    const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+
+    const existingUser = registeredUsers.find(
+      (user) => user.email === formData.email
+    );
+
+    // Use registered username if exists, otherwise create dynamic username from email
+    const username = existingUser?.username || formData.email.split("@")[0];
+
+    // Create user data for context & storage
     const userData = {
-      username: "Akash",       // you can fetch this from API
+      username, // ✅ dynamic username
       email: formData.email,
       theme: "light",
       language: "en",
       profilePic: null,
     };
 
+    // Save login state & user data
     localStorage.setItem("isLoggedIn", "true");
     localStorage.setItem("user", JSON.stringify(userData));
     setUser(userData); // ✅ update context
@@ -72,9 +83,7 @@ function Login() {
           <button type="submit">Login</button>
           {message.text && (
             <p
-              className={
-                message.type === "success" ? "auth-success" : "auth-error"
-              }
+              className={message.type === "success" ? "auth-success" : "auth-error"}
             >
               {message.text}
             </p>
