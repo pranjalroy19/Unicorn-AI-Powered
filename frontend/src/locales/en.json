@@ -1,0 +1,22 @@
+{
+  "settings": "Settings",
+  "profileSettings": "Profile Settings",
+  "changeProfilePic": "Change Profile Picture",
+  "updateUsername": "Update Username",
+  "preferences": "Preferences",
+  "language": "Language",
+  "theme": "Theme",
+  "notifications": "Notifications",
+  "emailNotifications": "Email Notifications",
+  "smsNotifications": "SMS Notifications",
+  "accountManagement": "Account Management",
+  "changePassword": "Change Password",
+  "deleteAccount": "Delete Account",
+  "toggleDark": "Toggle Dark",
+  "toggleLight": "Toggle Light",
+  "upload": "Upload",
+  "edit": "Edit",
+  "enable": "Enable",
+  "update": "Update",
+  "dangerDelete": "Delete"
+}

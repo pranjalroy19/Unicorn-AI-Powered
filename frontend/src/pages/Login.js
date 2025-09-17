@@ -10,16 +10,25 @@ function Login() {
   const navigate = useNavigate();
 
   const handleChange = (e) =>
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (!formData.email || !formData.password) {
       setMessage({ type: "error", text: "All fields are required!" });
       return;
     }
+
+    // ✅ simulate login success
+    localStorage.setItem("isLoggedIn", "true");
+
     setMessage({ type: "success", text: "Login successful!" });
-    setTimeout(() => navigate("/dashboard"), 800);
+
+    // ✅ redirect to dashboard
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 800);
   };
 
   return (
@@ -34,10 +43,30 @@ function Login() {
       <div className="auth-card floating">
         <form onSubmit={handleSubmit}>
           <h2>Login</h2>
-          <input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleChange} />
-          <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} />
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+          />
           <button type="submit">Login</button>
-          {message.text && <p className={message.type==="success"?"auth-success":"auth-error"}>{message.text}</p>}
+          {message.text && (
+            <p
+              className={
+                message.type === "success" ? "auth-success" : "auth-error"
+              }
+            >
+              {message.text}
+            </p>
+          )}
         </form>
       </div>
     </motion.div>

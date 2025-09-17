@@ -1,42 +1,77 @@
 // src/components/Navbar.js
-import React from "react";
 import "./styles/Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext.js";
 
-function Navbar({ darkMode, toggleTheme }) {
+function Navbar() {
+  const { user, setUser } = useUser();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+ const handleLogout = () => {
+  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("user");
+  navigate("/login"); // if using react-router's useNavigate
+};
+
   return (
-    <nav className={`navbar ${darkMode ? "dark" : ""}`}>
-      {/* Left: Brand */}
-      <h1 className="navbar-title">Unicorn AI</h1>
+    <nav className="navbar">
+      {/* Brand / Logo */}
+      <Link to="/" className="navbar-title">
+        UNICORN - AI 
+      </Link>
 
-      {/* Right: Links */}
+      {/* Links */}
       <div className="navbar-links">
-        <Link to="/" className={window.location.pathname === "/" ? "active" : ""}>
+        <Link to="/" className={location.pathname === "/" ? "active" : ""}>
           Home
         </Link>
         <Link
           to="/dashboard"
-          className={window.location.pathname === "/dashboard" ? "active" : ""}
+          className={location.pathname === "/dashboard" ? "active" : ""}
         >
           Dashboard
         </Link>
-        <Link
-          to="/login"
-          className={window.location.pathname === "/login" ? "active" : ""}
-        >
-          Login
-        </Link>
-        <Link
-          to="/register"
-          className={window.location.pathname === "/register" ? "active" : ""}
-        >
-          Register
-        </Link>
 
-        {/* Theme Toggle */}
-        <button className="theme-toggle" onClick={toggleTheme}>
-          {darkMode ? "Light Mode" : "Dark Mode"}
-        </button>
+        {!user ? (
+          <>
+            <Link
+              to="/login"
+              className={location.pathname === "/login" ? "active" : ""}
+            >
+              Login
+            </Link>
+            <Link
+              to="/register"
+              className={location.pathname === "/register" ? "active" : ""}
+            >
+              Register
+            </Link>
+          </>
+        ) : (
+          <>
+            {/* Profile info */}
+            <Link to="/dashboard" className="user-info">
+              {user.profilePic ? (
+                <img
+                  src={user.profilePic}
+                  alt="profile"
+                  className="nav-profile-pic"
+                />
+              ) : (
+                <span className="nav-profile-pic-placeholder" />
+              )}
+              <span className="nav-username">
+                Hi{user.username ? `, ${user.username}` : ""}
+              </span>
+            </Link>
+
+            {/* Logout button */}
+            <button className="logout-btn" onClick={handleLogout}>
+              Logout
+            </button>
+          </>
+        )}
       </div>
     </nav>
   );

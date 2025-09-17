@@ -1,115 +1,59 @@
 .navbar {
   position: fixed;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  
-  /* Take 90–95% of the screen width */
-  width: 1400px;   /* 👈 adjust between 90–95% */
-  /* max-width: 1200px; optional: keep it clean on very large screens */
-  
+  top: 0;
+  left: 0;
+
+  width: 98%;            /* full width */
+  height: 70px;            /* consistent height */
+
   z-index: 50;
-  padding: 0.75rem 1.5rem;
+  padding: 0 2rem;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  background: rgba(255, 255, 255, 0.08); /* transparent, matches login/register */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 14px; /* soft rounded corners */
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
-}
+  background: #1e293b;     /* professional clean background (slate navy) */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 
-
-.navbar:hover {
-  
-  transform: translateX(-50%) translateY(-2px); /* lift on hover */
+  transition: background 0.3s ease;
 }
 
 /* Brand / Logo */
 .navbar-title {
   font-family: "Poppins", sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  color: #ffffff;
   cursor: pointer;
-  color: #fff;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.25);
 }
 
 /* Links container */
 .navbar-links {
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
   align-items: center;
 }
 
-/* Button-style links */
+/* Links */
 .navbar-links a {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 500;
-  color: #fff;
+  color: #e2e8f0;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.08);
-  transition: all 0.3s ease;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  transition: background 0.3s ease;
 }
 
 .navbar-links a:hover {
-  background: rgba(255, 255, 255, 0.18);
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
 }
 
-/* Active link */
 .navbar-links a.active {
-  background: rgba(255, 255, 255, 0.25);
-  color: #fff;
+  background: #3b82f6;   /* blue highlight */
+  color: #ffffff;
   font-weight: 600;
-}
-
-/* Theme toggle button (floating pill style) */
-.theme-toggle {
-  padding: 0.5rem 1.2rem;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-}
-
-.theme-toggle:hover {
-  transform: translateY(-2px) scale(1.05);
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 6px 22px rgba(0,0,0,0.35);
-}
-
-/* Dark Mode */
-.dark .navbar {
-  background: rgba(30, 30, 60, 0.25);
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.45);
-}
-
-.dark .navbar-links a {
-  background: rgba(255,255,255,0.06);
-  color: #e5e7eb;
-}
-
-.dark .navbar-links a:hover {
-  background: rgba(255,255,255,0.15);
-}
-
-.dark .theme-toggle {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
 }

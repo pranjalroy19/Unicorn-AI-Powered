@@ -1,0 +1,22 @@
+{
+  "settings": "सेटिंग्स",
+  "profileSettings": "प्रोफ़ाइल सेटिंग्स",
+  "changeProfilePic": "प्रोफ़ाइल चित्र बदलें",
+  "updateUsername": "उपयोगकर्ता नाम अपडेट करें",
+  "preferences": "प्राथमिकताएँ",
+  "language": "भाषा",
+  "theme": "थीम",
+  "notifications": "सूचनाएँ",
+  "emailNotifications": "ईमेल सूचनाएँ",
+  "smsNotifications": "एसएमएस सूचनाएँ",
+  "accountManagement": "खाता प्रबंधन",
+  "changePassword": "पासवर्ड बदलें",
+  "deleteAccount": "खाता हटाएं",
+  "toggleDark": "डार्क मोड",
+  "toggleLight": "लाइट मोड",
+  "upload": "अपलोड करें",
+  "edit": "संपादित करें",
+  "enable": "सक्रिय करें",
+  "update": "अपडेट करें",
+  "dangerDelete": "हटाएं"
+}
