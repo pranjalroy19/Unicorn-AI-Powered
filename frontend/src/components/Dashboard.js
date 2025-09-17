@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Dashboard from "../components/Dashboard.js";
-import { fetchSavedContent } from "../utils/api.js"; // ✅ import named function
-
+import { fetchSavedContent } from "../utils/api.js"; 
+import { FaTrash, FaEdit } from "react-icons/fa"; 
 function DashboardPage() {
   const [contentList, setContentList] = useState([]);
   const [loading, setLoading] = useState(true);
