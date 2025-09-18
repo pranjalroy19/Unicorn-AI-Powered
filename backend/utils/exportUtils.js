@@ -4,7 +4,7 @@ import { Document, Packer, Paragraph, TextRun } from "docx";
 import fs from "fs";
 import path from "path";
 
-// ✅ PDF Export
+//  PDF Export
 export const exportToPdf = (text, filePath) => {
   return new Promise((resolve, reject) => {
     try {
@@ -23,7 +23,7 @@ export const exportToPdf = (text, filePath) => {
   });
 };
 
-// ✅ DOCX Export
+//  DOCX Export
 export const exportToDocx = async (text, filePath) => {
   const doc = new Document({
     sections: [
@@ -38,7 +38,7 @@ export const exportToDocx = async (text, filePath) => {
   return filePath;
 };
 
-// ✅ TXT Export
+//  TXT Export
 export const exportToTxt = (text, filePath) => {
   fs.writeFileSync(filePath, text, "utf-8");
   return filePath;

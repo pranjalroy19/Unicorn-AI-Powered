@@ -1,8 +1,7 @@
-// utils/openaiClient.js
+
 import OpenAI from "openai";
 import dotenv from "dotenv";
 
-// Load environment variables from .env
 dotenv.config();
 
 /**
@@ -29,7 +28,7 @@ export const createChatCompletion = async (messages = [], options = {}) => {
       max_tokens,
     });
 
-    // Extract assistant reply text
+    
     const text =
       resp?.choices?.[0]?.message?.content ??
       resp?.choices?.[0]?.text ??

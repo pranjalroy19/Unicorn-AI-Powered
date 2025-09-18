@@ -1,7 +1,6 @@
 import Content from "../models/Content.js";
 import { createChatCompletion } from "../utils/openaiClient.js";
 
-// Summarize text
 export const summarizeText = async (req, res) => {
   try {
     const { text, length } = req.body;
@@ -26,7 +25,6 @@ export const summarizeText = async (req, res) => {
   }
 };
 
-// Generate blog post
 export const generateBlog = async (req, res) => {
   try {
     const { topic } = req.body;
@@ -51,7 +49,6 @@ export const generateBlog = async (req, res) => {
   }
 };
 
-// Chat assistant
 export const chatAssistant = async (req, res) => {
   try {
     const { message } = req.body;

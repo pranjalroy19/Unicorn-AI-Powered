@@ -7,6 +7,7 @@ import authRoutes from "./routes/authRoutes.js";
 import aiRoutes from "./routes/aiRoutes.js";
 import exportRoutes from "./routes/exportRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
+import summarizeRoute from "./routes/summarize.js"; // ⬅️ NEW
 
 dotenv.config();
 connectDB();
@@ -20,6 +21,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/export", exportRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/summarize", summarizeRoute); // ⬅️ NEW
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
