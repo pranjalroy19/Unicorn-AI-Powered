@@ -1,22 +1,33 @@
 // src/pages/Home.js
 import React, { useState, useRef, useEffect } from "react";
-import axios from "axios"; // ✅ import axios
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Home.css";
 
 const features = [
   { id: "summarizer", title: "Text Summarizer", description: "Get a short summary from long text." },
   { id: "blog", title: "Blog Writer", description: "Generate blog articles from topics." },
   { id: "chat", title: "Chat Assistant", description: "Ask questions and get answers." },
-  { id: "f4" }, { id: "f5" }, { id: "f6" },
+  { id: "f4", title: "Coming Soon" },
+  { id: "f5", title: "Coming Soon" },
+  { id: "f6", title: "Coming Soon" },
 ];
+
+// Map feature IDs to routes
+const featureRoutes = {
+  summarizer: "/summarizer",
+  blog: "/blog",
+  chat: null, // handled separately
+};
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false); // Loading indicator for AI
+  const [loading, setLoading] = useState(false);
   const cardRefs = useRef({});
+  const navigate = useNavigate();
 
   // Scroll to card on search
   useEffect(() => {
@@ -70,13 +81,19 @@ function Home() {
           <div
             key={i}
             ref={(el) => (cardRefs.current[f.id] = el)}
-            onClick={() => f.id === "chat" && setIsChatOpen(true)}
+            onClick={() => {
+              if (f.id === "chat") {
+                setIsChatOpen(true);
+              } else if (featureRoutes[f.id]) {
+                navigate(featureRoutes[f.id]);
+              }
+            }}
             className={`feature-card ${f.title ? "clickable" : "disabled"}`}
           >
             {f.title ? (
               <>
                 <h2>{f.title}</h2>
-                <p>{f.description}</p>
+                {f.description && <p>{f.description}</p>}
               </>
             ) : (
               <span>Coming soon</span>
@@ -101,9 +118,7 @@ function Home() {
                 {m.text}
               </div>
             ))}
-            {loading && (
-              <div className="chat-message assistant">Typing...</div>
-            )}
+            {loading && <div className="chat-message assistant">Typing...</div>}
           </div>
           <div className="chat-input">
             <input
