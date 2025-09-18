@@ -1,32 +1,25 @@
+// routes/summarize.js
 import express from "express";
-import OpenAI from "openai";
-
 const router = express.Router();
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
 
 router.post("/", async (req, res) => {
   try {
-    const { text, length } = req.body;
+    const { text } = req.body;
 
-    const lengthMap = {
-      short: "around 2-3 sentences",
-      medium: "around 1 paragraph",
-      detailed: "around 2-3 paragraphs",
-    };
-
-    const prompt = `Summarize the following text in ${lengthMap[length] || "a short"} summary:\n\n${text}`;
+    // Import and initialize OpenAI here
+    const OpenAI = (await import("openai")).default;
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [{ role: "user", content: prompt }],
+      model: "gpt-4o-mini", // choose your model
+      messages: [{ role: "user", content: `Summarize this text:\n${text}` }],
     });
 
-    res.json({ summary: completion.choices[0].message.content });
+    const summary = completion.choices[0].message.content;
+    res.json({ summary });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to summarize" });
+    res.status(500).json({ error: "AI service error" });
   }
 });
 
