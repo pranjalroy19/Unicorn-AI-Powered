@@ -49,7 +49,7 @@ function Home() {
     setLoading(true);
 
     try {
-      const res = await axios.post("/api/ai/chat", { message: userMessage });
+      const res = await axios.post("http://localhost:5000/api/ai/chat", { message: userMessage });
       const reply = res.data.reply;
       setMessages((prev) => [...prev, { sender: "assistant", text: reply }]);
     } catch (err) {
