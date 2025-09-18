@@ -38,7 +38,7 @@ function Summarizer() {
       <h2 className="text-2xl font-bold mb-3">📝 Text Summarizer</h2>
 
       <textarea
-        placeholder="Paste your article or text here..."
+        placeholder="Paste your text and instantly get a concise summary.."
         value={text}
         onChange={(e) => setText(e.target.value)}
         rows={8}

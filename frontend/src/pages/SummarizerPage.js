@@ -1,16 +1,18 @@
+// SummarizerPage.js
 import React from "react";
+import "./SummarizerPage.css"; // <- make sure path is correct
 import Summarizer from "../components/Summarizer.js";
 import FeatureLayout from "../components/FeatureLayout.js";
 
 function SummarizerPage() {
   return (
-    <FeatureLayout
-      icon="📝"
-      title="Text Summarizer"
-      description="Paste your text and instantly get a concise summary."
-    >
-      <Summarizer />
-    </FeatureLayout>
+    <div className="summarizer-page">
+      <FeatureLayout>
+        <div className="summarizer-page__content">
+          <Summarizer />
+        </div>
+      </FeatureLayout>
+    </div>
   );
 }
 
