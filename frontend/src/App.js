@@ -18,7 +18,12 @@ import Login from "./pages/Login.js";
 import Register from "./pages/Register.js";
 import DashboardPage from "./pages/DashboardPage.js";
 import AboutPage from "./pages/AboutPage.js";
-import { UserProvider, useUser } from "./context/UserContext.js";
+import { UserProvider } from "./context/UserContext.js";
+
+// ✅ Feature pages
+import SummarizerPage from "./pages/SummarizerPage.js";
+import Blog from "./pages/Blog.js";
+import Chat from "./pages/Chat.js";
 
 // ✅ Protected route
 function ProtectedRoute({ children }) {
@@ -33,6 +38,7 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
+        {/* Home */}
         <Route
           path="/"
           element={
@@ -41,6 +47,8 @@ function AnimatedRoutes() {
             </ProtectedRoute>
           }
         />
+
+        {/* Dashboard */}
         <Route
           path="/dashboard"
           element={
@@ -49,8 +57,38 @@ function AnimatedRoutes() {
             </ProtectedRoute>
           }
         />
+
+        {/* Features */}
+        <Route
+          path="/summarizer"
+          element={
+            <ProtectedRoute>
+              <SummarizerPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/blog"
+          element={
+            <ProtectedRoute>
+              <Blog />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/chat"
+          element={
+            <ProtectedRoute>
+              <Chat />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Auth */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        {/* Other */}
         <Route path="/about" element={<AboutPage />} />
       </Routes>
     </AnimatePresence>
@@ -95,7 +133,7 @@ function App() {
               darkMode={darkMode}
               toggleTheme={toggleTheme}
               language={language}
-              setLanguage={setLanguage} // Pass setLanguage to Navbar if needed
+              setLanguage={setLanguage}
             />
             <AnimatedRoutes />
           </Router>

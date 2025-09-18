@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import Summarizer from "../components/Summarizer.js";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
 
 const features = [
@@ -7,26 +7,29 @@ const features = [
     id: "summarizer",
     title: "Text Summarizer",
     description: "Get a short summary from long text.",
+    path: "/summarizer",
   },
   {
     id: "blog",
     title: "Blog Writer",
     description: "Generate blog articles from topics.",
+    path: "/blog",
   },
   {
     id: "chat",
     title: "Chat Assistant",
     description: "Ask questions and get answers.",
+    path: "/chat",
   },
   { id: "f4" }, { id: "f5" }, { id: "f6" },
 ];
 
 function Home() {
-  const [activeFeature, setActiveFeature] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const cardRefs = useRef({});
+  const navigate = useNavigate(); // ✅ for navigation
 
-  // 🔍 When searchTerm changes, scroll to the matched card
+  // 🔍 Scroll to matched card on search
   useEffect(() => {
     if (searchTerm.trim() === "") return;
 
@@ -36,7 +39,6 @@ function Home() {
 
     if (match && cardRefs.current[match.id]) {
       cardRefs.current[match.id].scrollIntoView({ behavior: "smooth", block: "center" });
-      setActiveFeature(match.id);
     }
   }, [searchTerm]);
 
@@ -58,10 +60,8 @@ function Home() {
           <div
             key={i}
             ref={(el) => (cardRefs.current[f.id] = el)}
-            onClick={() => f.title && setActiveFeature(f.id)}
-            className={`feature-card ${f.title ? "clickable" : "disabled"} ${
-              activeFeature === f.id ? "active" : ""
-            }`}
+            onClick={() => f.path && navigate(f.path)} // ✅ navigate to new page
+            className={`feature-card ${f.title ? "clickable" : "disabled"}`}
           >
             {f.title ? (
               <>
@@ -73,20 +73,6 @@ function Home() {
             )}
           </div>
         ))}
-      </div>
-
-      {/* Feature content */}
-      <div className="feature-content">
-        {activeFeature === "summarizer" && <Summarizer />}
-        {activeFeature === "blog" && (
-          <div className="placeholder">✍️ Blog Writer coming soon...</div>
-        )}
-        {activeFeature === "chat" && (
-          <div className="placeholder">🤖 Chat Assistant coming soon...</div>
-        )}
-        {!activeFeature && (
-          <p className="placeholder">Click on a card to start a feature</p>
-        )}
       </div>
     </div>
   );
