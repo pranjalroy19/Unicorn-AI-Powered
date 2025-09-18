@@ -1,0 +1,160 @@
+/* Home.css - centered layout + responsive */
+.home-container {
+  padding: 6rem 2rem 3rem; /* keep space for navbar */
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* heading */
+.home-heading {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 2.5rem;
+}
+
+/* Search bar */
+.feature-search {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.feature-search input {
+  width: 60%;
+  max-width: 450px;
+  padding: 1rem 1.2rem;
+  border: 2px solid #333;
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-search input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+/* ✨ Cards grid — centered as a block */
+.feature-cards {
+  display: grid;
+  /* fixed card columns so the whole block can be centered */
+  grid-template-columns: repeat(3, 350px);
+  gap: 2.5rem;
+  justify-content: center; /* centers the entire grid inside container */
+  justify-items: center;
+  margin: 0 auto 3rem;
+  max-width: 1150px;
+}
+
+/* Card style */
+.feature-card {
+  width: 350px;
+  height: 170px;
+  border: 1px solid #333;
+  border-radius: 16px;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 500;
+  /* prevent card from being hidden under navbar when scrolled into view */
+  scroll-margin-top: 6.5rem;
+}
+
+/* Hover effect */
+.feature-card:hover {
+  transform: translateY(-6px) scale(1.05);
+  border-color: #4f46e5;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+.feature-card.clickable:hover {
+  background: #f3f4f6;
+}
+
+.feature-card.disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.feature-card.active {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+/* Feature content (the Summarizer area) centered */
+.feature-content {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.feature-content > * {
+  width: 100%;
+  max-width: 920px;   /* content width */
+  margin: 0 auto;
+}
+
+/* placeholder styling */
+.placeholder {
+  text-align: center;
+  padding: 2rem;
+  color: gray;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+}
+
+/* responsive behavior */
+/* 2 columns for medium screens */
+@media (max-width: 1024px) {
+  .feature-cards {
+    grid-template-columns: repeat(2, 320px);
+    max-width: 720px;
+  }
+  .feature-card {
+    width: 320px;
+  }
+  .feature-search input {
+    width: 70%;
+    max-width: 380px;
+  }
+}
+
+/* single column for small screens */
+@media (max-width: 640px) {
+  .home-container {
+    padding: 7rem 1rem 3rem;
+  }
+  .feature-cards {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 360px;
+  }
+  .feature-card {
+    width: 100%;
+    height: auto;
+    padding: 1.75rem;
+  }
+  .feature-search input {
+    width: 92%;
+  }
+}
+
+/* (optional) hide native scrollbar while preserving scroll behavior */
+body {
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+}
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}

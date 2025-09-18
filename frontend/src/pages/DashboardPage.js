@@ -1,4 +1,3 @@
-// src/pages/DashboardPage.js
 import React, { useState, useEffect } from "react";
 import "./DashboardPage.css";
 import { FaUser, FaCog, FaBell, FaLock } from "react-icons/fa";
@@ -12,37 +11,41 @@ function DashboardPage() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
-  // Apply theme
+  // Sync user to context & localStorage
+  const syncUserToStorage = (updatedUser) => {
+    setUser(updatedUser);
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const idx = users.findIndex((u) => u.email === updatedUser.email);
+    if (idx > -1) users[idx] = { ...users[idx], ...updatedUser };
+    else users.push(updatedUser);
+    localStorage.setItem("users", JSON.stringify(users));
+  };
+
+  // Apply theme on load
   useEffect(() => {
     if (!user) return;
-    if (user.theme === "dark") document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
-  }, [user?.theme]);
+
+    const theme = user.theme || "light";
+    const root = document.documentElement;
+
+    if (theme === "dark") root.classList.add("dark");
+    else root.classList.remove("dark");
+
+    // If theme missing, set default
+    if (!user.theme) {
+      syncUserToStorage({ ...user, theme });
+    }
+  }, [user]);
 
   // Apply language
   useEffect(() => {
     if (user?.language) i18n.changeLanguage(user.language);
   }, [user?.language, i18n]);
 
-  // Redirect if not logged in (after hooks)
+  // Redirect if not logged in
   if (!user) return <Navigate to="/login" replace />;
-
-  // helper: sync updated user to context, "user" key and "users" array
-  const syncUserToStorage = (updatedUser) => {
-    // update context & single-user storage
-    setUser(updatedUser);
-    localStorage.setItem("user", JSON.stringify(updatedUser));
-
-    // update users array (persist per-email)
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const idx = users.findIndex((u) => u.email === updatedUser.email);
-    if (idx > -1) {
-      users[idx] = { ...users[idx], ...updatedUser };
-    } else {
-      users.push(updatedUser);
-    }
-    localStorage.setItem("users", JSON.stringify(users));
-  };
 
   // Profile handlers
   const handleProfilePicChange = (e) => {
@@ -50,39 +53,37 @@ function DashboardPage() {
     if (!file) return;
     const reader = new FileReader();
     reader.onloadend = () => {
-      const updated = { ...user, profilePic: reader.result };
-      syncUserToStorage(updated);
+      syncUserToStorage({ ...user, profilePic: reader.result });
     };
     reader.readAsDataURL(file);
   };
 
   const handleUsernameChange = () => {
     const newName = prompt(t("updateUsername"), user?.username || "");
-    if (newName && newName.trim() !== "") {
-      const updated = { ...user, username: newName.trim() };
-      syncUserToStorage(updated);
+    if (newName?.trim()) {
+      syncUserToStorage({ ...user, username: newName.trim() });
     }
   };
 
   const handleLanguageChange = (lang) => {
-    const updated = { ...user, language: lang };
-    syncUserToStorage(updated);
+    syncUserToStorage({ ...user, language: lang });
     i18n.changeLanguage(lang);
   };
 
   const toggleTheme = () => {
-    const newTheme = user?.theme === "light" ? "dark" : "light";
-    const updated = { ...user, theme: newTheme };
-    syncUserToStorage(updated);
+    const newTheme = user.theme === "light" ? "dark" : "light";
+    syncUserToStorage({ ...user, theme: newTheme });
+
+    // Immediate DOM update
+    const root = document.documentElement;
+    if (newTheme === "dark") root.classList.add("dark");
+    else root.classList.remove("dark");
   };
 
-  // Account management
   const handleChangePassword = () => {
     const newPassword = prompt("Enter new password:");
     if (!newPassword) return alert("Password not changed.");
-
-    const updated = { ...user, password: newPassword };
-    syncUserToStorage(updated);
+    syncUserToStorage({ ...user, password: newPassword });
     alert("Password updated successfully!");
   };
 
@@ -92,82 +93,47 @@ function DashboardPage() {
     );
     if (!confirmDelete) return;
 
-    // Remove from users array
     const users = JSON.parse(localStorage.getItem("users")) || [];
     const updatedUsers = users.filter((u) => u.email !== user.email);
     localStorage.setItem("users", JSON.stringify(updatedUsers));
 
-    // Remove current session
     localStorage.removeItem("user");
     localStorage.removeItem("isLoggedIn");
     setUser(null);
 
-    // Redirect to login
     navigate("/login", { replace: true });
   };
 
   return (
     <div className="dashboard-container">
-      {/* Sidebar */}
       <aside className="sidebar">
-        <button
-          className={activeSection === "profile" ? "active" : ""}
-          onClick={() => setActiveSection("profile")}
-          title={t("profileSettings")}
-        >
+        <button className={activeSection === "profile" ? "active" : ""} onClick={() => setActiveSection("profile")} title={t("profileSettings")}>
           <FaUser />
         </button>
-        <button
-          className={activeSection === "preferences" ? "active" : ""}
-          onClick={() => setActiveSection("preferences")}
-          title={t("preferences")}
-        >
+        <button className={activeSection === "preferences" ? "active" : ""} onClick={() => setActiveSection("preferences")} title={t("preferences")}>
           <FaCog />
         </button>
-        <button
-          className={activeSection === "notifications" ? "active" : ""}
-          onClick={() => setActiveSection("notifications")}
-          title={t("notifications")}
-        >
+        <button className={activeSection === "notifications" ? "active" : ""} onClick={() => setActiveSection("notifications")} title={t("notifications")}>
           <FaBell />
         </button>
-        <button
-          className={activeSection === "account" ? "active" : ""}
-          onClick={() => setActiveSection("account")}
-          title={t("accountManagement")}
-        >
+        <button className={activeSection === "account" ? "active" : ""} onClick={() => setActiveSection("account")} title={t("accountManagement")}>
           <FaLock />
         </button>
       </aside>
 
-      {/* Main Content */}
       <main className="dashboard-main">
         <h1 className="page-title">{t("settings")}</h1>
 
-        {/* Profile Section */}
         {activeSection === "profile" && (
           <div className="settings-section">
             <h2>{t("profileSettings")}</h2>
             <div className="settings-option">
               <label>{t("changeProfilePic")}</label>
               <div>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleProfilePicChange}
-                  style={{ display: "none" }}
-                  id="profilePicInput"
-                />
-                <button
-                  onClick={() =>
-                    document.getElementById("profilePicInput").click()
-                  }
-                >
-                  {t("upload")}
-                </button>
+                <input type="file" accept="image/*" onChange={handleProfilePicChange} style={{ display: "none" }} id="profilePicInput"/>
+                <button onClick={() => document.getElementById("profilePicInput").click()}>{t("upload")}</button>
               </div>
             </div>
-
             <div className="settings-option">
               <label>{t("updateUsername")}</label>
               <button onClick={handleUsernameChange}>{t("edit")}</button>
@@ -175,32 +141,25 @@ function DashboardPage() {
           </div>
         )}
 
-        {/* Preferences Section */}
         {activeSection === "preferences" && (
           <div className="settings-section">
             <h2>{t("preferences")}</h2>
             <div className="settings-option">
               <label>{t("language")}</label>
-              <select
-                className="dropdown"
-                value={user?.language || "en"}
-                onChange={(e) => handleLanguageChange(e.target.value)}
-              >
+              <select className="dropdown" value={user?.language || "en"} onChange={(e) => handleLanguageChange(e.target.value)}>
                 <option value="en">English</option>
                 <option value="hi">Hindi</option>
               </select>
             </div>
-
             <div className="settings-option">
               <label>{t("theme")}</label>
               <button onClick={toggleTheme}>
-                {user?.theme === "light" ? t("toggleDark") : t("toggleLight")}
+                {user.theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
               </button>
             </div>
           </div>
         )}
 
-        {/* Notifications Section */}
         {activeSection === "notifications" && (
           <div className="settings-section">
             <h2>{t("notifications")}</h2>
@@ -215,21 +174,16 @@ function DashboardPage() {
           </div>
         )}
 
-        {/* Account Section */}
         {activeSection === "account" && (
           <div className="settings-section">
             <h2>{t("accountManagement")}</h2>
-
             <div className="settings-option">
               <label>{t("changePassword")}</label>
               <button onClick={handleChangePassword}>{t("update")}</button>
             </div>
-
             <div className="settings-option">
               <label>{t("deleteAccount")}</label>
-              <button className="danger" onClick={handleDeleteAccount}>
-                {t("dangerDelete")}
-              </button>
+              <button className="danger" onClick={handleDeleteAccount}>{t("dangerDelete")}</button>
             </div>
           </div>
         )}

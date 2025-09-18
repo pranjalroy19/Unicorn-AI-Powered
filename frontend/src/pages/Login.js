@@ -14,56 +14,36 @@ function Login() {
   const handleChange = (e) =>
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    if (!formData.email || !formData.password) {
-      setMessage({ type: "error", text: "All fields are required!" });
-      return;
-    }
+  if (!formData.email || !formData.password) {
+    setMessage({ type: "error", text: "All fields are required!" });
+    return;
+  }
 
-    // Load users array
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const existingUser = users.find((u) => u.email === formData.email);
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  const existingUser = users.find((u) => u.email === formData.email);
 
-    if (existingUser) {
-      // check password
-      if (existingUser.password !== formData.password) {
-        setMessage({ type: "error", text: "Incorrect password!" });
-        return;
-      }
+  if (!existingUser) {
+    setMessage({ type: "error", text: "User not found! Please register first." });
+    return;
+  }
 
-      // login existing user (restores profilePic etc.)
-      setUser(existingUser);
-      localStorage.setItem("user", JSON.stringify(existingUser));
-      localStorage.setItem("isLoggedIn", "true");
-      setMessage({ type: "success", text: "Login successful!" });
+  if (existingUser.password !== formData.password) {
+    setMessage({ type: "error", text: "Incorrect password!" });
+    return;
+  }
 
-      setTimeout(() => navigate("/dashboard"), 500);
-      return;
-    }
+  // ✅ successful login
+  setUser(existingUser);
+  localStorage.setItem("user", JSON.stringify(existingUser));
+  localStorage.setItem("isLoggedIn", "true");
+  setMessage({ type: "success", text: "Login successful!" });
 
-    // If new user, create and store
-    const dynamicUsername = formData.email.split("@")[0];
+  setTimeout(() => navigate("/dashboard"), 500);
+};
 
-    const newUser = {
-      username: dynamicUsername,
-      email: formData.email,
-      password: formData.password,
-      theme: "light",
-      language: "en",
-      profilePic: null,
-    };
-
-    const updatedUsers = [...users, newUser];
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
-    localStorage.setItem("user", JSON.stringify(newUser));
-    localStorage.setItem("isLoggedIn", "true");
-    setUser(newUser);
-
-    setMessage({ type: "success", text: "Login successful!" });
-    setTimeout(() => navigate("/dashboard"), 500);
-  };
 
   return (
     <motion.div
