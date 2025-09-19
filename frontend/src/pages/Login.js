@@ -1,4 +1,4 @@
-// src/pages/Login.js
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -35,7 +35,7 @@ const handleSubmit = (e) => {
     return;
   }
 
-  // ✅ successful login
+ 
   setUser(existingUser);
   localStorage.setItem("user", JSON.stringify(existingUser));
   localStorage.setItem("isLoggedIn", "true");

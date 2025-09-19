@@ -1,4 +1,3 @@
-// src/pages/Home.js
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -28,7 +27,6 @@ function Home() {
   const cardRefs = useRef({});
   const navigate = useNavigate();
 
-  // live suggestions (Google-like)
   const suggestions = features.filter(
     (f) =>
       f.title &&
@@ -74,7 +72,7 @@ function Home() {
 
   return (
     <div className="home-container">
-      {/* Search box */}
+      
       <div className="feature-search" style={{ position: "relative" }}>
         <input
           type="text"
@@ -93,7 +91,7 @@ function Home() {
           }}
         />
 
-        {/* Google-style suggestions */}
+        
         {showSuggestions && suggestions.length > 0 && (
           <ul className="suggestions-dropdown">
             {suggestions.map((f) => (
@@ -105,7 +103,7 @@ function Home() {
         )}
       </div>
 
-      {/* Feature cards */}
+      
       <div className="feature-cards">
         {filteredFeatures.map((f) => (
           <div
@@ -132,7 +130,7 @@ function Home() {
         ))}
       </div>
 
-      {/* Chat Widget */}
+    
       {isChatOpen && (
         <div className="chat-widget">
           <div className="chat-header">

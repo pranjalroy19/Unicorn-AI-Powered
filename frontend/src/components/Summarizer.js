@@ -4,7 +4,7 @@ import axios from "axios";
 function Summarizer() {
   const [text, setText] = useState("");
   const [mode, setMode] = useState("short");
-  const [customWords, setCustomWords] = useState(""); // 🆕 custom word input
+  const [customWords, setCustomWords] = useState(""); 
   const [summary, setSummary] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -23,7 +23,7 @@ function Summarizer() {
   setLoading(true);
 
   try {
-    // Convert customWords to number and only send if valid
+    
     const customLimitNum = parseInt(customWords);
     const payload = {
       text,
@@ -68,7 +68,7 @@ function Summarizer() {
           <select
             value={mode}
             onChange={(e) => setMode(e.target.value)}
-            disabled={!!customWords} // disable dropdown if custom is filled
+            disabled={!!customWords} 
             className="p-2 border rounded text-black disabled:opacity-50"
           >
             <option value="short">Short (~25 words)</option>

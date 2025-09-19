@@ -1,6 +1,5 @@
-// SummarizerPage.js
 import React from "react";
-import "./SummarizerPage.css"; // <- make sure path is correct
+import "./SummarizerPage.css"; 
 import Summarizer from "../components/Summarizer.js";
 import FeatureLayout from "../components/FeatureLayout.js";
 

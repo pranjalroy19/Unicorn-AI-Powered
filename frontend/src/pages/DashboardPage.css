@@ -1,13 +1,12 @@
-/* Dashboard Layout */
+
 .dashboard-container {
   display: flex;
   min-height: 100vh;
   background: var(--bg-color);
   color: var(--text-color);
-  margin-top: 60px; /* Below navbar */
+  margin-top: 60px; 
 }
 
-/* Slim Sidebar */
 .sidebar {
   width: 70px;
   background: var(--sidebar-bg);
@@ -19,7 +18,7 @@
   gap: 1rem;
 }
 
-/* Sidebar Buttons */
+
 .sidebar button {
   background: var(--btn-bg);
   color: var(--btn-text);
@@ -44,7 +43,7 @@
   color: #fff;
 }
 
-/* Main Content */
+
 .dashboard-main {
   flex: 1;
   padding: 1.5rem;
@@ -58,7 +57,7 @@
   color: var(--heading-color);
 }
 
-/* Settings Section */
+
 .settings-section {
   background: var(--card-bg);
   padding: 1rem 1.2rem;
@@ -91,7 +90,7 @@
   color: var(--text-muted);
 }
 
-/* Buttons inside settings */
+
 .settings-option button {
   background: var(--btn-bg);
   color: var(--btn-text);
@@ -117,7 +116,7 @@
   background: #be123c;
 }
 
-/* Dropdown same as button */
+
 .settings-option select.dropdown {
   padding: 6px 10px;
   font-size: 0.85rem;
@@ -135,7 +134,7 @@
   background: var(--btn-hover);
 }
 
-/* Light theme */
+
 :root {
   --bg-color: #f9fafb;
   --text-color: #1e293b;
@@ -152,7 +151,7 @@
   --btn-hover: #cbd5e1;
 }
 
-/* Dark theme */
+
 .dark {
   --bg-color: #0f172a;
   --text-color: #f8fafc;

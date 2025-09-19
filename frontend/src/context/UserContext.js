@@ -1,4 +1,4 @@
-// src/context/UserContext.js
+
 import { createContext, useContext, useState, useEffect } from "react";
 
 const UserContext = createContext();
@@ -11,7 +11,7 @@ export function UserProvider({ children }) {
       : { username: "", profilePic: "", theme: "light", language: "English" };
   });
 
-  // Persist user in localStorage whenever it changes
+  
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
   }, [user]);

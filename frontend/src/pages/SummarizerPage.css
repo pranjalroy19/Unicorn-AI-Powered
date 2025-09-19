@@ -19,7 +19,7 @@
   transition: background 0.2s ease;
 }
 
-/* Generic feature-layout container (covers common naming patterns) */
+
 .feature-layout,
 .summarizer-page > .feature-layout,
 .summarizer-page .feature-layout {
@@ -30,7 +30,7 @@
   overflow: hidden;
 }
 
-/* Header selectors: tries to match a few common class names */
+
 .feature-layout__header,
 .feature-header,
 .summarizer-page__header,
@@ -52,7 +52,7 @@
   box-shadow: 0 10px 30px rgba(15,23,42,0.12);
 }
 
-/* Icon + title */
+
 .feature-layout__icon,
 .summarizer-page__icon,
 .feature-header__icon { font-size:1.6rem; }
@@ -72,7 +72,7 @@
   color: var(--primary);
 }
 
-/* Body / content area */
+
 .feature-layout__body,
 .summarizer-page__content,
 .feature-body {
@@ -88,7 +88,6 @@
   box-shadow: 0 12px 30px rgba(2,6,23,0.06);
 }
 
-/* Buttons and inputs inside content */
 .feature-layout__body button,
 .summarizer-page__content button {
   background: linear-gradient(90deg, var(--primary), var(--accent));
@@ -124,5 +123,5 @@
   box-shadow: 0 0 0 4px rgba(99,102,241,0.12);
 }
 
-/* small helpers */
+
 .hidden{display:none}

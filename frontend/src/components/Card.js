@@ -1,4 +1,4 @@
-// src/components/Card.js
+
 import React from "react";
 import ExportButton from "./ExportButton";
 import { deleteContent } from "../utils/api";
@@ -8,7 +8,7 @@ function Card({ item }) {
     try {
       await deleteContent(item._id);
       alert("Deleted!");
-      // Optionally trigger re-render from parent (e.g., pass a callback)
+    
     } catch (err) {
       console.error("Delete failed:", err);
       alert("Failed to delete item.");

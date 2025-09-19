@@ -1,12 +1,10 @@
-// src/utils/api.js
+
 import axios from "axios";
 
-// ✅ Create an axios instance
 const api = axios.create({
-  baseURL: "http://localhost:5000/api", // 🔧 update if backend runs elsewhere
+  baseURL: "http://localhost:5000/api", 
 });
 
-// ✅ Named exports (helper functions)
 export const fetchSavedContent = async () => {
   const response = await api.get("/content");
   return response.data;
@@ -32,5 +30,4 @@ export const loginUser = async (credentials) => {
   return response.data;
 };
 
-// ✅ Default export (so you can do `import api from "../utils/api"`)
 export default api;

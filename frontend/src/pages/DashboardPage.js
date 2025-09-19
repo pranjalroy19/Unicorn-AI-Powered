@@ -11,7 +11,7 @@ function DashboardPage() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
-  // Sync user to context & localStorage
+  
   const syncUserToStorage = (updatedUser) => {
     setUser(updatedUser);
     localStorage.setItem("user", JSON.stringify(updatedUser));
@@ -23,7 +23,7 @@ function DashboardPage() {
     localStorage.setItem("users", JSON.stringify(users));
   };
 
-  // Apply theme on load
+  
   useEffect(() => {
     if (!user) return;
 
@@ -33,21 +33,19 @@ function DashboardPage() {
     if (theme === "dark") root.classList.add("dark");
     else root.classList.remove("dark");
 
-    // If theme missing, set default
+    
     if (!user.theme) {
       syncUserToStorage({ ...user, theme });
     }
   }, [user]);
 
-  // Apply language
   useEffect(() => {
     if (user?.language) i18n.changeLanguage(user.language);
   }, [user?.language, i18n]);
 
-  // Redirect if not logged in
+  
   if (!user) return <Navigate to="/login" replace />;
 
-  // Profile handlers
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -74,7 +72,7 @@ function DashboardPage() {
     const newTheme = user.theme === "light" ? "dark" : "light";
     syncUserToStorage({ ...user, theme: newTheme });
 
-    // Immediate DOM update
+
     const root = document.documentElement;
     if (newTheme === "dark") root.classList.add("dark");
     else root.classList.remove("dark");

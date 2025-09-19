@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./i18n.js"; // <-- Add .js extension
+import "./i18n.js"; 
 import { I18nextProvider } from "react-i18next";
-import i18n from "./i18n.js"; // <-- Also add .js here
+import i18n from "./i18n.js"; 
 
 import {
   BrowserRouter as Router,
@@ -20,18 +20,17 @@ import DashboardPage from "./pages/DashboardPage.js";
 import AboutPage from "./pages/AboutPage.js";
 import { UserProvider } from "./context/UserContext.js";
 
-// ✅ Feature pages
+
 import SummarizerPage from "./pages/SummarizerPage.js";
 import Blog from "./pages/Blog.js";
 import Chat from "./pages/Chat.js";
 
-// ✅ Protected route
+
 function ProtectedRoute({ children }) {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   return isLoggedIn ? children : <Navigate to="/login" replace />;
 }
 
-// ✅ Animated Routes wrapper
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -48,7 +47,7 @@ function AnimatedRoutes() {
           }
         />
 
-        {/* Dashboard */}
+   
         <Route
           path="/dashboard"
           element={
@@ -58,7 +57,6 @@ function AnimatedRoutes() {
           }
         />
 
-        {/* Features */}
         <Route
           path="/summarizer"
           element={
@@ -77,11 +75,10 @@ function AnimatedRoutes() {
         />
        
 
-        {/* Auth */}
+       
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Other */}
         <Route path="/about" element={<AboutPage />} />
       </Routes>
     </AnimatePresence>
@@ -92,7 +89,6 @@ function App() {
   const [darkMode, setDarkMode] = useState(localStorage.getItem("theme") === "dark");
   const [language, setLanguage] = useState(localStorage.getItem("language") || "en");
 
-  // ✅ Apply theme on load/change
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -103,9 +99,8 @@ function App() {
     }
   }, [darkMode]);
 
-  // ✅ Apply language on load/change
   useEffect(() => {
-    i18n.changeLanguage(language); // Updates all components instantly
+    i18n.changeLanguage(language); 
     localStorage.setItem("language", language);
   }, [language]);
 

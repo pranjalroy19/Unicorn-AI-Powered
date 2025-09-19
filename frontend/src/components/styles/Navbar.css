@@ -13,14 +13,14 @@
   justify-content: space-between;
   align-items: center;
 
-  background: #1e293b;     /* professional clean background (slate navy) */
+  background: #1e293b;    
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 
   transition: background 0.3s ease;
 }
 
-/* Brand / Logo */
+
 .navbar-title {
   font-family: "Poppins", sans-serif;
   font-size: 1.4rem;
@@ -29,14 +29,13 @@
   cursor: pointer;
 }
 
-/* Links container */
+
 .navbar-links {
   display: flex;
   gap: 1.2rem;
   align-items: center;
 }
 
-/* Links */
 .navbar-links a {
   font-size: 1rem;
   font-weight: 500;
@@ -53,11 +52,10 @@
 }
 
 .navbar-links a.active {
-  background: #3b82f6;   /* blue highlight */
+  background: #3b82f6;  
   color: #ffffff;
   font-weight: 600;
 }
-/* Profile avatar next to Hi */
 .user-info {
   display: flex;
   align-items: center;
@@ -71,7 +69,7 @@
   height: 35px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #3b82f6; /* optional nice blue border */
+  border: 2px solid #3b82f6; 
 }
 
 .nav-profile-pic-placeholder {

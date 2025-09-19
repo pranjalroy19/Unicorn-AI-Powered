@@ -10,18 +10,18 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("user");
-    setUser(null); // clear context state
-    navigate("/register"); // redirect to Register page
+    setUser(null); 
+    navigate("/register"); 
   };
 
   return (
     <nav className="navbar">
-      {/* Brand / Logo */}
+     
       <Link to="/" className="navbar-title">
         UNICORN - AI
       </Link>
 
-      {/* Links */}
+      
       <div className="navbar-links">
         <Link to="/" className={location.pathname === "/" ? "active" : ""}>
           Home
@@ -50,7 +50,7 @@ function Navbar() {
           </>
         ) : (
           <>
-            {/* Profile info */}
+            
             <Link to="/dashboard" className="user-info">
               {user.profilePic ? (
                 <img
@@ -66,7 +66,7 @@ function Navbar() {
               </span>
             </Link>
 
-            {/* Logout button */}
+            
             <button className="logout-btn" onClick={handleLogout}>
               Logout
             </button>

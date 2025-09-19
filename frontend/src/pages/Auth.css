@@ -1,4 +1,4 @@
-/* 🌈 Page background */
+
 .auth-page {
   min-height: 100vh;
   display: flex;
@@ -9,11 +9,11 @@
   background-color: #0f172a;
   padding: 20px;
   filter: contrast(110%) brightness(105%) saturate(115%);
-  flex-direction: column; /* center form vertically and horizontally */
+  flex-direction: column;
   gap: 2rem;
 }
 
-/* Form card */
+
 .auth-card {
   width: 400px;
   min-height: 40px;
@@ -27,23 +27,23 @@
   align-items: center;
   box-shadow: 0 8px 24px rgba(0,0,0,0.25);
   transition: all 0.35s ease-in-out;
-  animation: floatCard 4s ease-in-out infinite; /* floating only */
-  opacity: 1; /* visible immediately */
+  animation: floatCard 4s ease-in-out infinite; 
+  opacity: 1; 
 }
 
-/* Floating keyframes */
+
 @keyframes floatCard {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-15px); }
 }
 
-/* Hover effect remains */
+
 .auth-card:hover {
   transform: translateY(-8px) scale(1.03);
   box-shadow: 0 12px 32px rgba(59,130,246,0.4);
 }
 
-/* Title */
+
 .auth-card h2 {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -52,7 +52,7 @@
   color: #fff;
 }
 
-/* Inputs */
+
 .auth-card input {
   width: 94%;
   padding: 12px;
@@ -61,7 +61,7 @@
   border-radius: 8px;
   font-size: 1rem;
   background: rgba(255,255,255,0.25);
-  color: #000; /* black text */
+  color: #000; 
   transition: all 0.3s ease;
 }
 
@@ -73,7 +73,7 @@
   background: rgba(255,255,255,0.4);
 }
 
-/* Buttons */
+
 .auth-card button {
   width: 100%;
   padding: 12px;
@@ -89,6 +89,5 @@
 
 .auth-card button:hover { background: #2563eb; }
 
-/* Success & Error messages */
 .auth-success { margin-top:10px; color:#16a34a; font-size:0.9rem; }
 .auth-error { margin-top:10px; color:#dc2626; font-size:0.9rem; }

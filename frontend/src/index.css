@@ -1,6 +1,4 @@
-/* 🌙 Global theme variables */
 
-/* Light theme (default) */
 :root {
   --bg-color: #f9fafb;
   --text-color: #1e293b;
@@ -17,7 +15,6 @@
   --btn-hover: #cbd5e1;
 }
 
-/* Dark theme */
 .dark {
   --bg-color: #0f172a;
   --text-color: #f8fafc;
@@ -34,17 +31,16 @@
   --btn-hover: #475569;
 }
 
-/* 🌙 Global base styles */
 body {
   font-family: 'Inter', sans-serif;
   background: var(--bg-color);
   color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
   overflow-y: scroll;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none; 
 }
 body::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+  display: none;
 }
 
 html, body {
@@ -52,7 +48,7 @@ html, body {
   margin: 0;
 }
 
-/* Register page stays same */
+
 .register-page {
   height: 100vh;
   display: flex;
