@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
 
-// Registering a new user
+
 export const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -25,7 +25,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
-// Logining of a new user
+
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;

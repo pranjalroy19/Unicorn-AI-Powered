@@ -3,16 +3,6 @@ import OpenAI from "openai";
 import dotenv from "dotenv";
 
 dotenv.config();
-
-/**
- * Simple OpenAI client wrapper.
- * Exports:
- *  - client (default): raw OpenAI client
- *  - createChatCompletion: helper that returns assistant text
- *
- * NOTE: Make sure OPENAI_API_KEY is set in .env
- */
-
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
