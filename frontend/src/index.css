@@ -1,23 +1,64 @@
+/* 🌙 Global theme variables */
 
-/* 🌙 Optional global styles */
+/* Light theme (default) */
+:root {
+  --bg-color: #f9fafb;
+  --text-color: #1e293b;
+  --heading-color: #0f172a;
+  --text-muted: #475569;
+  --sidebar-bg: #f1f5f9;
+  --border-color: #cbd5e1;
+  --hover-bg: #e2e8f0;
+  --accent-color: #3b82f6;
+  --card-bg: #ffffff;
+  --card-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --btn-bg: #e2e8f0;
+  --btn-text: #1e293b;
+  --btn-hover: #cbd5e1;
+}
+
+/* Dark theme */
+.dark {
+  --bg-color: #0f172a;
+  --text-color: #f8fafc;
+  --heading-color: #ffffff;
+  --text-muted: #94a3b8;
+  --sidebar-bg: #1e293b;
+  --border-color: #334155;
+  --hover-bg: #334155;
+  --accent-color: #60a5fa;
+  --card-bg: #1e293b;
+  --card-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  --btn-bg: #334155;
+  --btn-text: #f8fafc;
+  --btn-hover: #475569;
+}
+
+/* 🌙 Global base styles */
 body {
   font-family: 'Inter', sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
 }
-/* Remove scrollbars globally */
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
 html, body {
   height: 100%;
   margin: 0;
-  overflow: hidden; /* ❌ disables scrolling */
 }
 
-/* Make register page take full viewport without extra padding */
+/* Register page stays same */
 .register-page {
-  height: 100vh; /* exact viewport height */
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #a855f7 100%);
   transition: background 0.5s ease;
-  padding: 0; /* remove padding that caused scroll */
+  padding: 0;
 }

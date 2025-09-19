@@ -1,17 +1,23 @@
-/* Home.css - centered layout + responsive */
+
+
+
+
+
 .home-container {
-  padding: 6rem 2rem 3rem; /* keep space for navbar */
+  padding: 6rem 2rem 3rem;
   max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
-/* heading */
 .home-heading {
   text-align: center;
   font-size: 2.2rem;
   font-weight: bold;
   margin-bottom: 2.5rem;
+  color: var(--heading-color);
 }
 
 /* Search bar */
@@ -21,19 +27,22 @@
   margin-bottom: 3rem;
 }
 
+/* Search bar */
 .feature-search input {
   width: 60%;
   max-width: 450px;
   padding: 1rem 1.2rem;
-  border: 2px solid #333;
+  border: 2px solid var(--border-color);
   border-radius: 12px;
   font-size: 1rem;
   outline: none;
+  background: var(--card-bg);
+  color: var(--text-color);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .feature-search input:focus {
-  border-color: #4f46e5;
+  border-color: var(--accent-color);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
 }
 
@@ -48,15 +57,16 @@
   max-width: 1150px;
 }
 
-/* Card style */
+
+/* Cards */
 .feature-card {
   width: 350px;
   height: 170px;
-  border: 1px solid #333;
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   text-align: center;
-  background: #fff;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
   transition: all 0.3s ease;
   cursor: pointer;
   display: flex;
@@ -65,18 +75,17 @@
   justify-content: center;
   font-size: 1.15rem;
   font-weight: 500;
-  scroll-margin-top: 6.5rem;
+  color: var(--text-color);
 }
 
-/* Hover effect */
 .feature-card:hover {
   transform: translateY(-6px) scale(1.05);
-  border-color: #4f46e5;
+  border-color: var(--accent-color);
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
 }
 
 .feature-card.clickable:hover {
-  background: #f3f4f6;
+  background: var(--hover-bg);
 }
 
 .feature-card.disabled {
@@ -252,4 +261,40 @@ body::-webkit-scrollbar {
   border: none;
   padding: 8px 12px;
   cursor: pointer;
+}
+
+
+.suggestions-dropdown {
+  position: absolute;
+  top: 105%;
+  left: 0;
+  width: 60%;
+  max-width: 450px;
+
+  background: #1f1f1f;            /* dark background like Chrome */
+  border: 1px solid #333;          /* subtle border */
+  border-radius: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* soft shadow */
+  z-index: 1000;
+  overflow: hidden;                /* round corners for items too */
+}
+
+.suggestions-dropdown li {
+  padding: 0.9rem 1.2rem;
+  cursor: pointer;
+  color: #e5e5e5;                  /* light text */
+  font-size: 0.95rem;
+  border-bottom: 1px solid #2c2c2c; /* subtle divider between items */
+  transition: background 0.2s ease;
+}
+
+.suggestions-dropdown li:last-child {
+  border-bottom: none;
+}
+
+.suggestions-dropdown li:hover {
+  background: #2a2a2a;             /* slightly lighter on hover */
 }

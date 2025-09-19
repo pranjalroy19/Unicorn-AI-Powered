@@ -13,11 +13,10 @@ const features = [
   { id: "f6", title: "Coming Soon" },
 ];
 
-// Map feature IDs to routes
 const featureRoutes = {
   summarizer: "/summarizer",
   blog: "/blog",
-  chat: null, // handled separately
+  chat: null,
 };
 
 function Home() {
@@ -26,21 +25,31 @@ function Home() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
   const cardRefs = useRef({});
   const navigate = useNavigate();
 
-  // Scroll to card on search
-  useEffect(() => {
-    if (!searchTerm) return;
-    const match = features.find(
-      (f) => f.title && f.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    if (match && cardRefs.current[match.id]) {
-      cardRefs.current[match.id].scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }, [searchTerm]);
+  // live suggestions (Google-like)
+  const suggestions = features.filter(
+    (f) =>
+      f.title &&
+      searchTerm.trim() !== "" &&
+      f.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  // Send message to AI
+  const filteredFeatures =
+    searchTerm.trim() === ""
+      ? features
+      : features.filter((f) =>
+          f.title?.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+  const handleSelectSuggestion = (title) => {
+    setSearchTerm(title);
+    setShowSuggestions(false);
+  };
+
   const handleSend = async () => {
     if (!input.trim()) return;
     const userMessage = input;
@@ -49,7 +58,9 @@ function Home() {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:5000/api/ai/chat", { message: userMessage });
+      const res = await axios.post("http://localhost:5000/api/ai/chat", {
+        message: userMessage,
+      });
       const reply = res.data.reply;
       setMessages((prev) => [...prev, { sender: "assistant", text: reply }]);
     } catch (err) {
@@ -66,20 +77,41 @@ function Home() {
   return (
     <div className="home-container">
       {/* Search box */}
-      <div className="feature-search">
+      <div className="feature-search" style={{ position: "relative" }}>
         <input
           type="text"
           placeholder="Search a feature..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setShowSuggestions(true);
+          }}
+          onFocus={() => searchTerm && setShowSuggestions(true)}
+          onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              setShowSuggestions(false);
+            }
+          }}
         />
+
+        {/* Google-style suggestions */}
+        {showSuggestions && suggestions.length > 0 && (
+          <ul className="suggestions-dropdown">
+            {suggestions.map((f) => (
+              <li key={f.id} onClick={() => handleSelectSuggestion(f.title)}>
+                {f.title}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       {/* Feature cards */}
       <div className="feature-cards">
-        {features.map((f, i) => (
+        {filteredFeatures.map((f) => (
           <div
-            key={i}
+            key={f.id}
             ref={(el) => (cardRefs.current[f.id] = el)}
             onClick={() => {
               if (f.id === "chat") {
@@ -133,7 +165,6 @@ function Home() {
         </div>
       )}
 
-      {/* Floating button */}
       {!isChatOpen && (
         <button className="chat-floating-btn" onClick={() => setIsChatOpen(true)}>
           💬
