@@ -75,14 +75,7 @@ function AnimatedRoutes() {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/chat"
-          element={
-            <ProtectedRoute>
-              <Chat />
-            </ProtectedRoute>
-          }
-        />
+       
 
         {/* Auth */}
         <Route path="/login" element={<Login />} />

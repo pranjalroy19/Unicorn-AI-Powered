@@ -285,9 +285,9 @@ body::-webkit-scrollbar {
 .suggestions-dropdown li {
   padding: 0.9rem 1.2rem;
   cursor: pointer;
-  color: #e5e5e5;                  /* light text */
+  color: #e5e5e5;                  
   font-size: 0.95rem;
-  border-bottom: 1px solid #2c2c2c; /* subtle divider between items */
+  border-bottom: 1px solid #2c2c2c; 
   transition: background 0.2s ease;
 }
 

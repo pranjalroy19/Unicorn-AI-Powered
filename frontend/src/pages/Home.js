@@ -7,16 +7,14 @@ import "./Home.css";
 const features = [
   { id: "summarizer", title: "Text Summarizer", description: "Get a short summary from long text." },
   { id: "blog", title: "Blog Writer", description: "Generate blog articles from topics." },
-  { id: "chat", title: "Chat Assistant", description: "Ask questions and get answers." },
   { id: "f4", title: "Coming Soon" },
   { id: "f5", title: "Coming Soon" },
-  { id: "f6", title: "Coming Soon" },
 ];
 
 const featureRoutes = {
   summarizer: "/summarizer",
   blog: "/blog",
-  chat: null,
+  
 };
 
 function Home() {
