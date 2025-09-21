@@ -1,6 +1,6 @@
 import express from "express";
 import { getUserContents, deleteContent } from "../controllers/dashboardController.js";
-import { protect } from "../middleware/authMiddleware.js";
+import { protect } from "../middleware/auth.js";
 
 const router = express.Router();
 

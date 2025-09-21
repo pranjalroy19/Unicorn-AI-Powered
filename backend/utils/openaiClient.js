@@ -1,24 +1,17 @@
-
 import OpenAI from "openai";
 import dotenv from "dotenv";
 
 dotenv.config();
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+
+const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export const createChatCompletion = async (messages = [], options = {}) => {
   try {
     const model = options.model || "gpt-4o-mini";
     const max_tokens = options.max_tokens || 1200;
 
-    const resp = await client.chat.completions.create({
-      model,
-      messages,
-      max_tokens,
-    });
+    const resp = await client.chat.completions.create({ model, messages, max_tokens });
 
-    
     const text =
       resp?.choices?.[0]?.message?.content ??
       resp?.choices?.[0]?.text ??
