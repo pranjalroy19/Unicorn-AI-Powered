@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Home.css";
@@ -6,14 +6,14 @@ import "./Home.css";
 const features = [
   { id: "summarizer", title: "Text Summarizer", description: "Get a short summary from long text." },
   { id: "blog", title: "Blog Writer", description: "Generate blog articles from topics." },
-  { id: "f4", title: "Coming Soon" },
+  { id: "Content_Formatter", title: "Multiple Content Formats", description: "Generate emails, LinkedIn posts, tweets, product descriptions, YouTube scripts." },
   { id: "f5", title: "Coming Soon" },
 ];
 
 const featureRoutes = {
   summarizer: "/summarizer",
   blog: "/blog",
-  
+  Content_Formatter: "/multi-content",
 };
 
 function Home() {
@@ -27,13 +27,6 @@ function Home() {
   const cardRefs = useRef({});
   const navigate = useNavigate();
 
-  const suggestions = features.filter(
-    (f) =>
-      f.title &&
-      searchTerm.trim() !== "" &&
-      f.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   const filteredFeatures =
     searchTerm.trim() === ""
       ? features
@@ -41,9 +34,10 @@ function Home() {
           f.title?.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
-  const handleSelectSuggestion = (title) => {
-    setSearchTerm(title);
-    setShowSuggestions(false);
+  const handleFeatureClick = (featureId) => {
+    if (featureRoutes[featureId]) {
+      navigate(featureRoutes[featureId]); // Navigate to new page
+    }
   };
 
   const handleSend = async () => {
@@ -72,65 +66,22 @@ function Home() {
 
   return (
     <div className="home-container">
-      
-      <div className="feature-search" style={{ position: "relative" }}>
-        <input
-          type="text"
-          placeholder="Search a feature..."
-          value={searchTerm}
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            setShowSuggestions(true);
-          }}
-          onFocus={() => searchTerm && setShowSuggestions(true)}
-          onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              setShowSuggestions(false);
-            }
-          }}
-        />
-
-        
-        {showSuggestions && suggestions.length > 0 && (
-          <ul className="suggestions-dropdown">
-            {suggestions.map((f) => (
-              <li key={f.id} onClick={() => handleSelectSuggestion(f.title)}>
-                {f.title}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-
-      
+      {/* Feature Cards */}
       <div className="feature-cards">
         {filteredFeatures.map((f) => (
           <div
             key={f.id}
             ref={(el) => (cardRefs.current[f.id] = el)}
-            onClick={() => {
-              if (f.id === "chat") {
-                setIsChatOpen(true);
-              } else if (featureRoutes[f.id]) {
-                navigate(featureRoutes[f.id]);
-              }
-            }}
+            onClick={() => handleFeatureClick(f.id)}
             className={`feature-card ${f.title ? "clickable" : "disabled"}`}
           >
-            {f.title ? (
-              <>
-                <h2>{f.title}</h2>
-                {f.description && <p>{f.description}</p>}
-              </>
-            ) : (
-              <span>Coming soon</span>
-            )}
+            <h2>{f.title}</h2>
+            {f.description && <p>{f.description}</p>}
           </div>
         ))}
       </div>
 
-    
+      {/* Chat Widget */}
       {isChatOpen && (
         <div className="chat-widget">
           <div className="chat-header">

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./i18n.js"; 
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n.js"; 
-
+import MultiContentPage from "./pages/MultiContentPage.js"; // Added .js extension
 import {
   BrowserRouter as Router,
   Routes,
@@ -20,11 +20,9 @@ import DashboardPage from "./pages/DashboardPage.js";
 import AboutPage from "./pages/AboutPage.js";
 import { UserProvider } from "./context/UserContext.js";
 
-
 import SummarizerPage from "./pages/SummarizerPage.js";
 import Blog from "./pages/Blog.js";
 import Chat from "./pages/Chat.js";
-
 
 function ProtectedRoute({ children }) {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -47,7 +45,7 @@ function AnimatedRoutes() {
           }
         />
 
-   
+        {/* Dashboard */}
         <Route
           path="/dashboard"
           element={
@@ -57,6 +55,7 @@ function AnimatedRoutes() {
           }
         />
 
+        {/* Summarizer */}
         <Route
           path="/summarizer"
           element={
@@ -65,6 +64,8 @@ function AnimatedRoutes() {
             </ProtectedRoute>
           }
         />
+
+        {/* Blog */}
         <Route
           path="/blog"
           element={
@@ -73,12 +74,20 @@ function AnimatedRoutes() {
             </ProtectedRoute>
           }
         />
-       
 
-       
+        {/* Multiple Content Formats */}
+        <Route
+          path="/multi-content"
+          element={
+            <ProtectedRoute>
+              <MultiContentPage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Public Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
         <Route path="/about" element={<AboutPage />} />
       </Routes>
     </AnimatePresence>
